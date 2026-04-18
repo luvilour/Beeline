@@ -1,0 +1,9 @@
+# Common env outputs
+__pycache__
+.vscode
+
+# BEELINE specific files
+configs/
+outputs/
+inputs/
+plotting_examples/
