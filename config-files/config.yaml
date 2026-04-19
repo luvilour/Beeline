@@ -39,11 +39,6 @@ input_settings:
     algorithms:
               
 
-        - algorithm_id: "PIDC"
-          image: "grnbeeline/pidc:base"
-          should_run: [True]
-
-
         - algorithm_id: "GRNVBEM"
           image: "grnbeeline/grnvbem:base"
           should_run: [True]

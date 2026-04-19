@@ -17,10 +17,10 @@ ENV_NAME="BEELINE"
 
 if conda info --env | grep -q "${ENV_NAME}"; then
     echo "Conda environment '${ENV_NAME}' already exists. Checking for updates."
-    conda env update --file=$BASEDIR/environment.yml -n "${ENV_NAME}"
+    conda env update --file="$BASEDIR/environment.yml" -n "${ENV_NAME}"
 else
     echo "Creating Conda environment '${ENV_NAME}'..."
-    conda env create --file=$BASEDIR/environment.yml
+    conda env create --file="$BASEDIR/environment.yml"
     echo "Conda environment '${ENV_NAME}' created."
 fi
 
