@@ -61,13 +61,18 @@ input_settings:
         #   should_run: [True]
         #   params: {}
 
-        - algorithm_id: "GENIE3"
-          image: "grnbeeline/arboreto:base"
-          should_run: [True]
-          params: {}
+        # - algorithm_id: "GENIE3"
+        #   image: "grnbeeline/arboreto:base"
+        #   should_run: [True]
+        #   params: {}
+        #
+        # - algorithm_id: "GRNBOOST2"
+        #   image: "grnbeeline/arboreto:base"
+        #   should_run: [True]
+        #   params: {}
 
-        - algorithm_id: "GRNBOOST2"
-          image: "grnbeeline/arboreto:base"
+        - algorithm_id: LASSONET
+          image: "lassonet:base"
           should_run: [True]
           params: {}
 

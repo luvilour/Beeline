@@ -98,6 +98,7 @@ LOCAL_IMAGES=(
     scribe:base
     sincerities:base
     scsgl:base
+    lassonet:base
 )
 
 if [[ "$REMOVE_GRNBEELINE" = true ]]; then
@@ -291,6 +292,17 @@ if [[ "$BUILD" = true ]]; then
         echo "Docker container failed to build, but an existing image exists at scsgl:base"
     else
         echo "Oops! Unable to build Docker container for SCSGL"
+    fi
+    popd
+
+    pushd $ROOTDIR/Algorithms/LassoNet/
+    docker build -t lassonet:base .
+    if ([ $? = 0 ] && [[ "$(docker images -q lassonet:base 2> /dev/null)" != "" ]]); then
+        echo "Docker container for LassoNet is built and tagged as lassonet:base"
+    elif [ "$(docker images -q lassonet:base 2> /dev/null)" != "" ]; then
+        echo "Docker container failed to build, but an existing image exists at lassonet:base"
+    else
+        echo "Oops! Unable to build Docker container for LassoNet"
     fi
     popd
 else
