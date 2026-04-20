@@ -63,30 +63,6 @@ input_settings:
               pVal: [0.01]
 
 
-        - algorithm_id: "SCODE"
-          image: "grnbeeline/scode:base"
-          should_run: [True]
-          params:
-              z: [10]
-              nIter: [1000]
-              nRep: [6]
-
-
-        - algorithm_id: "SINCERITIES"
-          image: "grnbeeline/sincerities:base"
-          should_run: [True]
-          params:
-              nBins: [10]
-
-
-        - algorithm_id: "LEAP"
-          image: "grnbeeline/leap:base"
-          should_run: [True]
-          params:
-              # Default maxLag value is 0.33
-              maxLag: [0.33]
-
-
         - algorithm_id: "GRISLI"
           image: "grnbeeline/grisli:base"
           should_run: [True]
@@ -94,20 +70,6 @@ input_settings:
               L: [10]
               R: [3000]
               alphaMin: [0.0]
-
-
-        - algorithm_id: "SINGE"
-          image: "grnbeeline/singe:0.4.1"
-          should_run: [True]
-          params:
-              lambda: [0.01]
-              dT: [15]
-              num_lags: [5]
-              kernel_width: [0.5]
-              prob_zero_removal: [0]
-              prob_remove_samples: [0.0]
-              family: ["gaussian"]
-              num_replicates: [6]
 
 
         - algorithm_id: "SCRIBE"
