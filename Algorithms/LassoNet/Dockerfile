@@ -5,7 +5,7 @@ LABEL maintainer="you@email.com"
 USER root
 WORKDIR /
 
-RUN pip install numpy lassonet wandb torch
+RUN pip install numpy lassonet torch pandas
 
 COPY runLassoNet.py /
 

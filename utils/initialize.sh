@@ -85,19 +85,19 @@ fi
 # Referenced in both the --remove-local-images block and the build block.
 LOCAL_IMAGES=(
     arboreto:base
-    grisli:base
+    # grisli:base
     grnvbem:base
-    jump3:base
-    leap:base
-    pidc:base
-    pni:base
-    ppcor:base
-    singe:base
-    scns:base
-    scode:base
-    scribe:base
-    sincerities:base
-    scsgl:base
+    # jump3:base
+    # leap:base
+    # pidc:base
+    # pni:base
+    # ppcor:base
+    # singe:base
+    # scns:base
+    # scode:base
+    # scribe:base
+    # sincerities:base
+    # scsgl:base
     lassonet:base
 )
 
@@ -152,16 +152,16 @@ if [[ "$BUILD" = true ]]; then
     fi
     popd
 
-    pushd $ROOTDIR/Algorithms/GRISLI/
-    docker build -t grisli:base .
-    if ([ $? = 0 ] && [ "$(docker images -q grisli:base 2> /dev/null)" != "" ]); then
-        echo "Docker container for GRISLI is built and tagged as grisli:base"
-    elif [ "$(docker images -q grisli:base 2> /dev/null)" != "" ]; then
-        echo "Docker container failed to build, but an existing image exists at grisli:base"
-    else
-        echo "Oops! Unable to build Docker container for GRISLI"
-    fi
-    popd
+    # pushd $ROOTDIR/Algorithms/GRISLI/
+    # docker build -t grisli:base .
+    # if ([ $? = 0 ] && [ "$(docker images -q grisli:base 2> /dev/null)" != "" ]); then
+    #     echo "Docker container for GRISLI is built and tagged as grisli:base"
+    # elif [ "$(docker images -q grisli:base 2> /dev/null)" != "" ]; then
+    #     echo "Docker container failed to build, but an existing image exists at grisli:base"
+    # else
+    #     echo "Oops! Unable to build Docker container for GRISLI"
+    # fi
+    # popd
 
     pushd $ROOTDIR/Algorithms/GRNVBEM/
     docker build -t grnvbem:base .
@@ -174,126 +174,126 @@ if [[ "$BUILD" = true ]]; then
     fi
     popd
 
-    pushd $ROOTDIR/Algorithms/JUMP3/
-    docker build -t jump3:base .
-    if ([ $? = 0 ] && [[ "$(docker images -q jump3:base 2> /dev/null)" != "" ]]); then
-        echo "Docker container for JUMP3 is built and tagged as  jump3:base"
-    elif [ "$(docker images -q jump3:base 2> /dev/null)" != "" ]; then
-        echo "Docker container failed to build, but an existing image exists at jump3:base"
-    else
-        echo "Oops! Unable to build Docker container for JUMP3"
-    fi
-    popd
-
-    pushd $ROOTDIR/Algorithms/LEAP/
-    docker build --tag=leap:base .
-    if ([ $? = 0 ] && [[ "$(docker images -q leap:base 2> /dev/null)" != "" ]]); then
-        echo "Docker container for LEAP is built and tagged as  leap:base"
-    elif [ "$(docker images -q leap:base 2> /dev/null)" != "" ]; then
-        echo "Docker container failed to build, but an existing image exists at leap:base"
-    else
-        echo "Oops! Unable to build Docker container for LEAP"
-    fi
-    popd
-
-    pushd $ROOTDIR/Algorithms/PIDC/
-    docker build -t pidc:base .
-    if ([ $? = 0 ] && [[ "$(docker images -q pidc:base 2> /dev/null)" != "" ]]); then
-        echo "Docker container for PIDC is built and tagged as pidc:base"
-    elif [ "$(docker images -q pidc:base 2> /dev/null)" != "" ]; then
-        echo "Docker container failed to build, but an existing image exists at pidc:base"
-    else
-        echo "Oops! Unable to build Docker container for PIDC"
-    fi
-    popd
-
-    pushd $ROOTDIR/Algorithms/PNI/
-    docker build -t pni:base .
-    if ([ $? = 0 ] && [[ "$(docker images -q pni:base 2> /dev/null)" != "" ]]); then
-        echo "Docker container for PNI is built and tagged as pni:base"
-    elif [ "$(docker images -q pni:base 2> /dev/null)" != "" ]; then
-        echo "Docker container failed to build, but an existing image exists at pni:base"
-    else
-        echo "Oops! Unable to build Docker container for PNI"
-    fi
-    popd
-
-    pushd $ROOTDIR/Algorithms/PPCOR/
-    docker build -t ppcor:base .
-    if ([ $? = 0 ] && [[ "$(docker images -q ppcor:base 2> /dev/null)" != "" ]]); then
-        echo "Docker container for PPCOR is built and tagged as ppcor:base"
-    elif [ "$(docker images -q ppcor:base 2> /dev/null)" != "" ]; then
-        echo "Docker container failed to build, but an existing image exists at ppcor:base"
-    else
-        echo "Oops! Unable to build Docker container for PPCOR"
-    fi
-    popd
-
-    pushd $ROOTDIR/Algorithms/SINGE/
-    docker build -t singe:base .
-    if ([ $? = 0 ] && [[ "$(docker images -q singe:base 2> /dev/null)" != "" ]]); then
-        echo "Docker container for SINGE is built and tagged as singe:base"
-    elif [ "$(docker images -q singe:base 2> /dev/null)" != "" ]; then
-        echo "Docker container failed to build, but an existing image exists at singe:base"
-    else
-        echo "Oops! Unable to build Docker container for SINGE"
-    fi
-    popd
-
-    pushd $ROOTDIR/Algorithms/SCNS/
-    docker build -t scns:base .
-    if ([ $? = 0 ] && [[ "$(docker images -q scns:base 2> /dev/null)" != "" ]]); then
-        echo "Docker container for SCNS is built and tagged as scns:base"
-    elif [ "$(docker images -q scns:base 2> /dev/null)" != "" ]; then
-        echo "Docker container failed to build, but an existing image exists at scns:base"
-    else
-        echo "Oops! Unable to build Docker container for SCNS"
-    fi
-    popd
-
-    pushd $ROOTDIR/Algorithms/SCODE/
-    docker build -t scode:base .
-    if ([ $? = 0 ] && [[ "$(docker images -q scode:base 2> /dev/null)" != "" ]]); then
-        echo "Docker container for SCODE is built and tagged as scode:base"
-    elif [ "$(docker images -q scode:base 2> /dev/null)" != "" ]; then
-        echo "Docker container failed to build, but an existing image exists at scode:base"
-    else
-        echo "Oops! Unable to build Docker container for SCODE"
-    fi
-    popd
-
-    pushd $ROOTDIR/Algorithms/SCRIBE/
-    docker build -t scribe:base .
-    if ([ $? = 0 ] && [[ "$(docker images -q scribe:base 2> /dev/null)" != "" ]]); then
-        echo "Docker container for SCRIBE is built and tagged as scribe:base"
-    elif [ "$(docker images -q scribe:base 2> /dev/null)" != "" ]; then
-        echo "Docker container failed to build, but an existing image exists at scribe:base"
-    else
-        echo "Oops! Unable to build Docker container for SCRIBE"
-    fi
-    popd
-
-    pushd $ROOTDIR/Algorithms/SINCERITIES/
-    docker build -t sincerities:base .
-    if ([ $? = 0 ] && [ "$(docker images -q sincerities:base 2> /dev/null)" != "" ]); then
-        echo "Docker container for SINCERITIES is built and tagged as sincerities:base"
-    elif [ "$(docker images -q sincerities:base 2> /dev/null)" != "" ]; then
-        echo "Docker container failed to build, but an existing image exists at sincerities:base"
-    else
-        echo "Oops! Unable to build Docker container for SINCERITIES"
-    fi
-    popd
-
-    pushd $ROOTDIR/Algorithms/SCSGL/
-    docker build -t scsgl:base .
-    if ([ $? = 0 ] && [[ "$(docker images -q scsgl:base 2> /dev/null)" != "" ]]); then
-        echo "Docker container for SCSGL is built and tagged as scsgl:base"
-    elif [ "$(docker images -q scsgl:base 2> /dev/null)" != "" ]; then
-        echo "Docker container failed to build, but an existing image exists at scsgl:base"
-    else
-        echo "Oops! Unable to build Docker container for SCSGL"
-    fi
-    popd
+    # pushd $ROOTDIR/Algorithms/JUMP3/
+    # docker build -t jump3:base .
+    # if ([ $? = 0 ] && [[ "$(docker images -q jump3:base 2> /dev/null)" != "" ]]); then
+    #     echo "Docker container for JUMP3 is built and tagged as  jump3:base"
+    # elif [ "$(docker images -q jump3:base 2> /dev/null)" != "" ]; then
+    #     echo "Docker container failed to build, but an existing image exists at jump3:base"
+    # else
+    #     echo "Oops! Unable to build Docker container for JUMP3"
+    # fi
+    # popd
+    #
+    # pushd $ROOTDIR/Algorithms/LEAP/
+    # docker build --tag=leap:base .
+    # if ([ $? = 0 ] && [[ "$(docker images -q leap:base 2> /dev/null)" != "" ]]); then
+    #     echo "Docker container for LEAP is built and tagged as  leap:base"
+    # elif [ "$(docker images -q leap:base 2> /dev/null)" != "" ]; then
+    #     echo "Docker container failed to build, but an existing image exists at leap:base"
+    # else
+    #     echo "Oops! Unable to build Docker container for LEAP"
+    # fi
+    # popd
+    #
+    # pushd $ROOTDIR/Algorithms/PIDC/
+    # docker build -t pidc:base .
+    # if ([ $? = 0 ] && [[ "$(docker images -q pidc:base 2> /dev/null)" != "" ]]); then
+    #     echo "Docker container for PIDC is built and tagged as pidc:base"
+    # elif [ "$(docker images -q pidc:base 2> /dev/null)" != "" ]; then
+    #     echo "Docker container failed to build, but an existing image exists at pidc:base"
+    # else
+    #     echo "Oops! Unable to build Docker container for PIDC"
+    # fi
+    # popd
+    #
+    # pushd $ROOTDIR/Algorithms/PNI/
+    # docker build -t pni:base .
+    # if ([ $? = 0 ] && [[ "$(docker images -q pni:base 2> /dev/null)" != "" ]]); then
+    #     echo "Docker container for PNI is built and tagged as pni:base"
+    # elif [ "$(docker images -q pni:base 2> /dev/null)" != "" ]; then
+    #     echo "Docker container failed to build, but an existing image exists at pni:base"
+    # else
+    #     echo "Oops! Unable to build Docker container for PNI"
+    # fi
+    # popd
+    #
+    # pushd $ROOTDIR/Algorithms/PPCOR/
+    # docker build -t ppcor:base .
+    # if ([ $? = 0 ] && [[ "$(docker images -q ppcor:base 2> /dev/null)" != "" ]]); then
+    #     echo "Docker container for PPCOR is built and tagged as ppcor:base"
+    # elif [ "$(docker images -q ppcor:base 2> /dev/null)" != "" ]; then
+    #     echo "Docker container failed to build, but an existing image exists at ppcor:base"
+    # else
+    #     echo "Oops! Unable to build Docker container for PPCOR"
+    # fi
+    # popd
+    #
+    # pushd $ROOTDIR/Algorithms/SINGE/
+    # docker build -t singe:base .
+    # if ([ $? = 0 ] && [[ "$(docker images -q singe:base 2> /dev/null)" != "" ]]); then
+    #     echo "Docker container for SINGE is built and tagged as singe:base"
+    # elif [ "$(docker images -q singe:base 2> /dev/null)" != "" ]; then
+    #     echo "Docker container failed to build, but an existing image exists at singe:base"
+    # else
+    #     echo "Oops! Unable to build Docker container for SINGE"
+    # fi
+    # popd
+    #
+    # pushd $ROOTDIR/Algorithms/SCNS/
+    # docker build -t scns:base .
+    # if ([ $? = 0 ] && [[ "$(docker images -q scns:base 2> /dev/null)" != "" ]]); then
+    #     echo "Docker container for SCNS is built and tagged as scns:base"
+    # elif [ "$(docker images -q scns:base 2> /dev/null)" != "" ]; then
+    #     echo "Docker container failed to build, but an existing image exists at scns:base"
+    # else
+    #     echo "Oops! Unable to build Docker container for SCNS"
+    # fi
+    # popd
+    #
+    # pushd $ROOTDIR/Algorithms/SCODE/
+    # docker build -t scode:base .
+    # if ([ $? = 0 ] && [[ "$(docker images -q scode:base 2> /dev/null)" != "" ]]); then
+    #     echo "Docker container for SCODE is built and tagged as scode:base"
+    # elif [ "$(docker images -q scode:base 2> /dev/null)" != "" ]; then
+    #     echo "Docker container failed to build, but an existing image exists at scode:base"
+    # else
+    #     echo "Oops! Unable to build Docker container for SCODE"
+    # fi
+    # popd
+    #
+    # pushd $ROOTDIR/Algorithms/SCRIBE/
+    # docker build -t scribe:base .
+    # if ([ $? = 0 ] && [[ "$(docker images -q scribe:base 2> /dev/null)" != "" ]]); then
+    #     echo "Docker container for SCRIBE is built and tagged as scribe:base"
+    # elif [ "$(docker images -q scribe:base 2> /dev/null)" != "" ]; then
+    #     echo "Docker container failed to build, but an existing image exists at scribe:base"
+    # else
+    #     echo "Oops! Unable to build Docker container for SCRIBE"
+    # fi
+    # popd
+    #
+    # pushd $ROOTDIR/Algorithms/SINCERITIES/
+    # docker build -t sincerities:base .
+    # if ([ $? = 0 ] && [ "$(docker images -q sincerities:base 2> /dev/null)" != "" ]); then
+    #     echo "Docker container for SINCERITIES is built and tagged as sincerities:base"
+    # elif [ "$(docker images -q sincerities:base 2> /dev/null)" != "" ]; then
+    #     echo "Docker container failed to build, but an existing image exists at sincerities:base"
+    # else
+    #     echo "Oops! Unable to build Docker container for SINCERITIES"
+    # fi
+    # popd
+    #
+    # pushd $ROOTDIR/Algorithms/SCSGL/
+    # docker build -t scsgl:base .
+    # if ([ $? = 0 ] && [[ "$(docker images -q scsgl:base 2> /dev/null)" != "" ]]); then
+    #     echo "Docker container for SCSGL is built and tagged as scsgl:base"
+    # elif [ "$(docker images -q scsgl:base 2> /dev/null)" != "" ]; then
+    #     echo "Docker container failed to build, but an existing image exists at scsgl:base"
+    # else
+    #     echo "Oops! Unable to build Docker container for SCSGL"
+    # fi
+    # popd
 
     pushd $ROOTDIR/Algorithms/LassoNet/
     docker build -t lassonet:base .

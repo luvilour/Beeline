@@ -20,10 +20,10 @@ def importances_filling(importances, expr_df, gene_being_regressed):
     model = LassoNetRegressor(hidden_dims=(5, 5))
     oracle, order, wrong, paths, prob = model.stability_selection(X_train, y_train)
 
-    probs = torch.sum(prob, dim1)/prob.shape[0]
+    probs = torch.sum(prob, dim=1)/prob.shape[1]
 
     cnt = order.size(dim=0)
-    
+
     '''
     Method by dividing the sum of the mean to every values
     '''
