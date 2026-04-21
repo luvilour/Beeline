@@ -31,5 +31,5 @@ class LassoNetRunner(Runner):
         raw = raw[['Gene1', 'Gene2', 'EdgeWeight']]
         raw['EdgeWeight'] = raw['EdgeWeight'].abs()
         raw.sort_values('EdgeWeight', ascending=False).to_csv(
-            os.path.join(self.output_dir, "rankedEdges.csv"), index=False
+            os.path.join(self.output_dir, "rankedEdges.csv"), index=False, sep='\t'
         )

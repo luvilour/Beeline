@@ -24,13 +24,6 @@ def importances_filling(importances, expr_df, gene_being_regressed):
 
     cnt = order.size(dim=0)
 
-    '''
-    Method by dividing the sum of the mean to every values
-    '''
-
-    sum_of_mean = torch.sum(probs)
-    probs = probs/sum_of_mean
-
     i = 0
     for cnt in range(importances.shape[1]):
         if cnt == gene_being_regressed - 1:
@@ -56,6 +49,8 @@ def main():
 
     for i in range(1, n_genes + 1):
         importances = importances_filling(importances, expr_df, i)
+
+    print(f"The importance matrix is the following: {importances}")
 
     # Convert importance matrix to ranked edge list
     # This replaces your aupr_roc/adjacency matrix logic — BEELINE handles eval
