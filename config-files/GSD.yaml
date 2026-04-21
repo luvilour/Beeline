@@ -24,35 +24,35 @@ input_settings:
             # - run_id: "GSD-2000-9"
             # - run_id: "GSD-2000-10"
 
-        - dataset_id: "GSD-q50"
-          should_run: [True]
-          groundTruthNetwork: "GroundTruthNetwork.csv"
-          runs:
-            - run_id: "GSD-2000-1-50"
-            - run_id: "GSD-2000-2-50"
-            # - run_id: "GSD-2000-3-50"
-            # - run_id: "GSD-2000-4-50"
-            # - run_id: "GSD-2000-5-50"
-            # - run_id: "GSD-2000-6-50"
-            # - run_id: "GSD-2000-7-50"
-            # - run_id: "GSD-2000-8-50"
-            # - run_id: "GSD-2000-9-50"
-            # - run_id: "GSD-2000-10-50"
-
-        - dataset_id: "GSD-q70"
-          should_run: [True]
-          groundTruthNetwork: "GroundTruthNetwork.csv"
-          runs:
-            - run_id: "GSD-2000-1-70"
-            - run_id: "GSD-2000-2-70"
-            # - run_id: "GSD-2000-3-70"
-            # - run_id: "GSD-2000-4-70"
-            # - run_id: "GSD-2000-5-70"
-            # - run_id: "GSD-2000-6-70"
-            # - run_id: "GSD-2000-7-70"
-            # - run_id: "GSD-2000-8-70"
-            # - run_id: "GSD-2000-9-70"
-            # - run_id: "GSD-2000-10-70"
+        # - dataset_id: "GSD-q50"
+        #   should_run: [True]
+        #   groundTruthNetwork: "GroundTruthNetwork.csv"
+        #   runs:
+        #     - run_id: "GSD-2000-1-50"
+        #     - run_id: "GSD-2000-2-50"
+        #     # - run_id: "GSD-2000-3-50"
+        #     # - run_id: "GSD-2000-4-50"
+        #     # - run_id: "GSD-2000-5-50"
+        #     # - run_id: "GSD-2000-6-50"
+        #     # - run_id: "GSD-2000-7-50"
+        #     # - run_id: "GSD-2000-8-50"
+        #     # - run_id: "GSD-2000-9-50"
+        #     # - run_id: "GSD-2000-10-50"
+        #
+        # - dataset_id: "GSD-q70"
+        #   should_run: [True]
+        #   groundTruthNetwork: "GroundTruthNetwork.csv"
+        #   runs:
+        #     - run_id: "GSD-2000-1-70"
+        #     - run_id: "GSD-2000-2-70"
+        #     # - run_id: "GSD-2000-3-70"
+        #     # - run_id: "GSD-2000-4-70"
+        #     # - run_id: "GSD-2000-5-70"
+        #     # - run_id: "GSD-2000-6-70"
+        #     # - run_id: "GSD-2000-7-70"
+        #     # - run_id: "GSD-2000-8-70"
+        #     # - run_id: "GSD-2000-9-70"
+        #     # - run_id: "GSD-2000-10-70"
 
     algorithms:
 
