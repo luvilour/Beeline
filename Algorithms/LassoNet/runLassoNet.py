@@ -15,12 +15,18 @@ def importances_filling(importances, expr_df, gene_being_regressed):
     other_genes = [g for g in genes if g != target_gene]
 
     X_train = expr_df.loc[other_genes].T.to_numpy()
-    y_train = expr_df.loc[target_gene].to_numpy()
+    # print(f"The shape of the X_train is {X_train.shape}")
+    y_train = expr_df.loc[target_gene].T.to_numpy()
+    # print(f"The shape of the y_train is {y_train.shape}")
 
     model = LassoNetRegressor(hidden_dims=(5, 5))
     oracle, order, wrong, paths, prob = model.stability_selection(X_train, y_train)
+    # print(f"The shape of the prob is {prob.shape}")
 
-    probs = torch.sum(prob, dim=1)/prob.shape[1]
+    probs = torch.sum(prob, dim=0)/prob.shape[0]
+
+    # print(f"The probabilities of the different genes are here: {prob} and the mean for all genes  is {probs}")
+    # print(f"The size of the probs is the following {probs.shape}")
 
     cnt = order.size(dim=0)
 
@@ -50,7 +56,7 @@ def main():
     for i in range(1, n_genes + 1):
         importances = importances_filling(importances, expr_df, i)
 
-    print(f"The importance matrix is the following: {importances}")
+    # print(f"The importance matrix is the following: {importances}")
 
     # Convert importance matrix to ranked edge list
     # This replaces your aupr_roc/adjacency matrix logic — BEELINE handles eval
