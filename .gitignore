@@ -4,5 +4,4 @@ __pycache__
 
 # BEELINE specific files
 configs/
-outputs/
 plotting_examples/
