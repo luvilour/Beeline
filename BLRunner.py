@@ -35,6 +35,7 @@ RUNNERS = {
     'SINCERITIES':  SINCERITIESRunner,
     'SINGE':        SINGERunner,
     'LASSONET':     LassoNetRunner,
+    'SCGENERAI':    scGeneRAIRunner,
 }
 
 

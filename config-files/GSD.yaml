@@ -76,6 +76,11 @@ input_settings:
           should_run: [True]
           params: {}
 
+        - algorithm_id: SCGENERAI
+          image: "scgenerai:base"
+          should_run: [True]
+          params: {}
+
 # Output Settings: initialize base output folder names
 output_settings:
 
