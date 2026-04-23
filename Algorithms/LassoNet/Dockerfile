@@ -1,6 +1,6 @@
 FROM python:3.9-slim
 
-LABEL maintainer="you@email.com"
+LABEL maintainer="lvilour@gmail.com"
 
 USER root
 WORKDIR /
