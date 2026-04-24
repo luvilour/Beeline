@@ -7,7 +7,7 @@ WORKDIR /
 
 RUN pip install numpy torch pandas
 
-COPY runScGeneRAI.py scGeneRAI.py /
+COPY runscGeneRAI.py scGeneRAI.py /
 
 RUN mkdir data/
 
