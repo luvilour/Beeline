@@ -5,7 +5,7 @@ LABEL maintainer="lvilour@gmail.com"
 USER root
 WORKDIR /
 
-RUN pip install numpy torch pandas
+RUN pip install numpy torch pandas tqdm
 
 COPY runscGeneRAI.py scGeneRAI.py dataloading_simple.py /
 
