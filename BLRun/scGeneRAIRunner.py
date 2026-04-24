@@ -3,7 +3,7 @@ import os
 import subprocess
 import pandas as pd
 
-class ScGeneRAIRunner(Runner):
+class scGeneRAIRunner(Runner):
 
     def generateInputs(self):
         # Just copy ExpressionData.csv — scGeneRAI reads it directly
