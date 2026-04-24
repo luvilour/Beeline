@@ -18,6 +18,7 @@ from BLRun.sinceritiesRunner import SINCERITIESRunner
 from BLRun.singeRunner import SINGERunner
 from BLRun.pearsonRunner import PearsonRunner
 from BLRun.LassoNetRunner import LassoNetRunner
+from BLRun.SCGENERAI import scGeneRAIRunner
 
 RUNNERS = {
     'GENIE3':       GENIE3Runner,
