@@ -307,10 +307,10 @@ if [[ "$BUILD" = true ]]; then
 	fi
 	popd
 
-	pushd $ROOTDIR/Algorithms/ScGeneRAI/
+	pushd $ROOTDIR/Algorithms/scGeneRAI/
 	docker build -t scgenerai:base .
 	if ([ $? = 0 ] && [[ "$(docker images -q scgenerai:base 2>/dev/null)" != "" ]]); then
-		echo "Docker container for ScGeneRAI is built and tagged as scgenerai:base"
+		echo "Docker container for scGeneRAI is built and tagged as scgenerai:base"
 	elif [ "$(docker images -q scgenerai:base 2>/dev/null)" != "" ]; then
 		echo "Docker container failed to build, but an existing image exists at scgenerai:base"
 	else
