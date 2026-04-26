@@ -9,10 +9,12 @@ def main():
     output_path = "/usr/working_dir/outFile.txt"
 
     data_gene_line = pd.read_csv(expr_path, sep=',', index_col=0)
-    data = data_gene_line.transpose()
+    data = data_gene_line
     data = data.reset_index(drop=True)
     data.index.name = 'cell_id'
     genes = data.columns.tolist()
+
+    print(f"The data are the following {data}")
 
     # Same parameters as your original main()
     nepochs = 100

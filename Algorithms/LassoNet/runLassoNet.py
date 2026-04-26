@@ -48,6 +48,8 @@ def main():
     output_path = "/usr/working_dir/outFile.txt"
 
     expr_df = pd.read_csv(expr_path, index_col=0)
+    print(f"The data are the following {expr_df}")
+
     n_genes = expr_df.shape[0]
     genes = expr_df.index.tolist()
 
