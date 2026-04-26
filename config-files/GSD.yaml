@@ -20,7 +20,7 @@ input_settings:
           groundTruthNetwork: "GroundTruthNetwork.csv"
           runs:
             - run_id: "GSD-2000-1"
-            - run_id: "GSD-2000-2"
+            # - run_id: "GSD-2000-2"
             # - run_id: "GSD-2000-3"
             # - run_id: "GSD-2000-4"
             # - run_id: "GSD-2000-5"
@@ -35,7 +35,7 @@ input_settings:
           groundTruthNetwork: "GroundTruthNetwork.csv"
           runs:
             - run_id: "HSC-2000-1"
-            - run_id: "HSC-2000-2"
+            # - run_id: "HSC-2000-2"
             # - run_id: "HSC-2000-3"
             # - run_id: "HSC-2000-4"
             # - run_id: "HSC-2000-5"
@@ -50,7 +50,7 @@ input_settings:
           groundTruthNetwork: "GroundTruthNetwork.csv"
           runs:
             - run_id: "VSC-2000-1"
-            - run_id: "VSC-2000-2"
+            # - run_id: "VSC-2000-2"
             # - run_id: "VSC-2000-3"
             # - run_id: "VSC-2000-4"
             # - run_id: "VSC-2000-5"
@@ -92,4 +92,4 @@ output_settings:
 
     # Base output directory
     output_dir: "outputs"
-    experiment_id: "AllSetsAllAlgorithms"
+    experiment_id: "AllAlgorithmOneSetByDataset"
