@@ -9,22 +9,30 @@ def main():
     output_path = "/usr/working_dir/outFile.txt"
 
     data_gene_line = pd.read_csv(expr_path, sep=',', index_col=0)
-    data = data_gene_line
+    data = data_gene_line.transpose()
     data = data.reset_index(drop=True)
     data.index.name = 'cell_id'
     genes = data.columns.tolist()
 
     print(f"The data are the following {data}")
 
+    # Normalize to [0,1] per gene — required by scGeneRAI's (a, 1-a) encoding
+    col_min = data.min(axis=0)
+    col_max = data.max(axis=0)
+    col_range = (col_max - col_min).replace(0, 1)  # avoid division by zero
+    data = (data - col_min) / col_range
+
+    train_data = data.sample(frac=0.9).copy()
+
     # Same parameters as your original main()
-    nepochs = 100
+    nepochs = 1500
     model_depth = 2
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
     # Fit and predict — same as your original code
     model = scGeneRAI.scGeneRAI()
-    model.fit(data, nepochs=nepochs, model_depth=model_depth, early_stopping=True, device_name=device)
-    model.predict_networks(data, PATH="/usr/working_dir/RESULTS/")
+    model.fit(train_data, nepochs=nepochs, model_depth=model_depth, early_stopping=True, device_name=device)
+    model.predict_networks(train_data, PATH="/usr/working_dir/RESULTS/")
 
     # Read results — same logic as your original code
     files = os.listdir("/usr/working_dir/RESULTS/results")
