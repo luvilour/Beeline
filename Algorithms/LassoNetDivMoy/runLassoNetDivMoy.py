@@ -25,6 +25,13 @@ def importances_filling(importances, expr_df, gene_being_regressed):
 
     probs = torch.sum(prob, dim=0)/prob.shape[0]
 
+    '''
+    Method by dividing the sum of the mean to every values
+    '''
+
+    sum_of_mean = torch.sum(probs)
+    probs = probs/sum_of_mean
+
     # print(f"The probabilities of the different genes are here: {prob} and the mean for all genes  is {probs}")
     # print(f"The size of the probs is the following {probs.shape}")
 
