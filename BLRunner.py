@@ -18,25 +18,27 @@ from BLRun.sinceritiesRunner import SINCERITIESRunner
 from BLRun.singeRunner import SINGERunner
 from BLRun.pearsonRunner import PearsonRunner
 from BLRun.LassoNetRunner import LassoNetRunner
+from BLRun.LassoNetDivMoyRunner import LassoNetDivMoyRunner
 from BLRun.scGeneRAIRunner import scGeneRAIRunner
 
 RUNNERS = {
-    'GENIE3':       GENIE3Runner,
-    'GRNBOOST2':    GRNBoost2Runner,
-    'GRISLI':       GRISLIRunner,
-    'GRNVBEM':      GRNVBEMRunner,
-    'JUMP3':        JUMP3Runner,
-    'LEAP':         LEAPRunner,
-    'PEARSON':      PearsonRunner,
-    'PIDC':         PIDCRunner,
-    'PPCOR':        PPCORRunner,
-    'SCODE':        SCODERunner,
-    'SCRIBE':       SCRIBERunner,
-    'SCSGL':        SCSGLRunner,
-    'SINCERITIES':  SINCERITIESRunner,
-    'SINGE':        SINGERunner,
-    'LASSONET':     LassoNetRunner,
-    'SCGENERAI':    scGeneRAIRunner,
+    'GENIE3':           GENIE3Runner,
+    'GRNBOOST2':        GRNBoost2Runner,
+    'GRISLI':           GRISLIRunner,
+    'GRNVBEM':          GRNVBEMRunner,
+    'JUMP3':            JUMP3Runner,
+    'LEAP':             LEAPRunner,
+    'PEARSON':          PearsonRunner,
+    'PIDC':             PIDCRunner,
+    'PPCOR':            PPCORRunner,
+    'SCODE':            SCODERunner,
+    'SCRIBE':           SCRIBERunner,
+    'SCSGL':            SCSGLRunner,
+    'SINCERITIES':      SINCERITIESRunner,
+    'SINGE':            SINGERunner,
+    'LASSONET':         LassoNetRunner,
+    'LASSONETDIVMOY':   LassoNetDivMoyRunner,
+    'SCGENERAI':        scGeneRAIRunner,
 }
 
 
