@@ -7,7 +7,7 @@ WORKDIR /
 
 RUN pip install numpy lassonet torch pandas
 
-COPY runLassoNet.py /
+COPY runLassoNetDivMoy.py /
 
 RUN mkdir data/
 
