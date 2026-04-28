@@ -165,7 +165,7 @@ class scGeneRAI:
 
 
         self.nsamples, self.nfeatures = self.data.shape
-        self.hidden = 2*self.nfeatures
+        self.hidden = 10*self.nfeatures
         self.depth = model_depth
 
         self.sample_names = self.data.index

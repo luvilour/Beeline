@@ -28,12 +28,6 @@ def main():
     # Clip test data to [0,1] in case it falls outside the training range
     test_data = ((test_data - col_min) / col_range).clip(0, 1)
 
-    # PAPER: model_depth=2
-    #        width = 10 * N (where N = number of genes)
-
-    N = len(genes)
-    model_width = 10 * N
-
     nepochs = 1500
     model_depth = 2
     device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -44,7 +38,6 @@ def main():
         train_data,
         nepochs=nepochs,
         model_depth=model_depth,
-        model_width=model_width,
         early_stopping=True,
         device_name=device,
     )
