@@ -72,29 +72,29 @@ input_settings:
           should_run: [True]
           params: {}
 
-        - algorithm_id: "GENIE3"
-          image: "grnbeeline/arboreto:base"
-          should_run: [True]
-          params: {}
-
-        - algorithm_id: "GRNBOOST2"
-          image: "grnbeeline/arboreto:base"
-          should_run: [True]
-          params: {}
-
-        - algorithm_id: LASSONET
-          image: "lassonet:base"
-          should_run: [True]
-          params: {}
-
-        - algorithm_id: LASSONETDIVMOY
-          image: "lassonetdivmoy:base"
-          should_run: [True]
-          params: {}
+        # - algorithm_id: "GENIE3"
+        #   image: "grnbeeline/arboreto:base"
+        #   should_run: [True]
+        #   params: {}
+        #
+        # - algorithm_id: "GRNBOOST2"
+        #   image: "grnbeeline/arboreto:base"
+        #   should_run: [True]
+        #   params: {}
+        #
+        # - algorithm_id: LASSONET
+        #   image: "lassonet:base"
+        #   should_run: [True]
+        #   params: {}
+        #
+        # - algorithm_id: LASSONETDIVMOY
+        #   image: "lassonetdivmoy:base"
+        #   should_run: [True]
+        #   params: {}
 
 # Output Settings: initialize base output folder names
 output_settings:
 
     # Base output directory
     output_dir: "outputs"
-    experiment_id: "AllAlgorithmOneSetByDataset"
+    experiment_id: "Changing the scGeneRAI algorithm"
