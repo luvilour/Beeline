@@ -19,7 +19,8 @@ input_settings:
           should_run: [True]
           groundTruthNetwork: "GroundTruthNetwork.csv"
           runs:
-            - run_id: "GSD-2000-1"
+            - run_id: "GSD-6000-1"
+            # - run_id: "GSD-2000-1"
             # - run_id: "GSD-2000-2"
             # - run_id: "GSD-2000-3"
             # - run_id: "GSD-2000-4"
@@ -34,7 +35,8 @@ input_settings:
           should_run: [True]
           groundTruthNetwork: "GroundTruthNetwork.csv"
           runs:
-            - run_id: "HSC-2000-1"
+            - run_id: "HSC-6000-1"
+            # - run_id: "HSC-2000-1"
             # - run_id: "HSC-2000-2"
             # - run_id: "HSC-2000-3"
             # - run_id: "HSC-2000-4"
@@ -49,7 +51,8 @@ input_settings:
           should_run: [True]
           groundTruthNetwork: "GroundTruthNetwork.csv"
           runs:
-            - run_id: "VSC-2000-1"
+            - run_id: "VSC-6000-1"
+            # - run_id: "VSC-2000-1"
             # - run_id: "VSC-2000-2"
             # - run_id: "VSC-2000-3"
             # - run_id: "VSC-2000-4"
@@ -97,4 +100,4 @@ output_settings:
 
     # Base output directory
     output_dir: "outputs"
-    experiment_id: "Changing the scGeneRAI algorithm"
+    experiment_id: "TryingWith6000Observations"
