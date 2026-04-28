@@ -15,7 +15,7 @@ class scGeneRAIRunner(Runner):
     def run(self):
         cmd = (
             f"docker run --rm"
-            f" -v {self.working_dir}:/usr/working_dir"
+            f" -v '{self.working_dir}:/usr/working_dir'"
             f" scgenerai:base"
             f" python runscGeneRAI.py"
         )
