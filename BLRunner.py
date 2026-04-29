@@ -21,6 +21,7 @@ from BLRun.LassoNetRunner import LassoNetRunner
 from BLRun.LassoNetDivMoyRunner import LassoNetDivMoyRunner
 from BLRun.scGeneRAIRunner import scGeneRAIRunner
 from BLRun.scGeneRAIMixedRunner import scGeneRAIMixedRunner
+from BLRun.DeepSEMRunner import DeepSEMRunner
 
 RUNNERS = {
     'GENIE3':           GENIE3Runner,
@@ -41,6 +42,7 @@ RUNNERS = {
     'LASSONETDIVMOY':   LassoNetDivMoyRunner,
     'SCGENERAI':        scGeneRAIRunner,
     'SCGENERAIMIXED':   scGeneRAIMixedRunner,
+    'DEEPSEMRUNNER':    DeepSEMRunner,
 }
 
 
