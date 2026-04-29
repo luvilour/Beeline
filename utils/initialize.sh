@@ -342,6 +342,17 @@ if [[ "$BUILD" = true ]]; then
     # fi
     # popd
 
+    pushd $ROOTDIR/Algorithms/DeepSEM/
+    docker build -t deepsem:base .
+    if ([ $? = 0 ] && [[ "$(docker images -q deepsem:base 2>/dev/null)" != "" ]]); then
+        echo "Docker container for DeepSEM is built and tagged as deepsem:base"
+    elif [ "$(docker images -q deepsem:base 2>/dev/null)" != "" ]; then
+        echo "Docker container failed to build, but an existing image exists at deepsem:base"
+    else
+        echo "Oops! Unable to build Docker container for DeepSEM"
+    fi
+    popd
+
 else
     echo "Pulling docker images from https://hub.docker.com/u/grnbeeline..."
     for image in "${DOCKERHUB_IMAGES[@]}"; do
