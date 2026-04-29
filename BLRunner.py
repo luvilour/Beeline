@@ -20,6 +20,7 @@ from BLRun.pearsonRunner import PearsonRunner
 from BLRun.LassoNetRunner import LassoNetRunner
 from BLRun.LassoNetDivMoyRunner import LassoNetDivMoyRunner
 from BLRun.scGeneRAIRunner import scGeneRAIRunner
+from BLRun.scGeneRAIMixedRunner import scGeneRAIMixedRunner
 
 RUNNERS = {
     'GENIE3':           GENIE3Runner,
@@ -39,6 +40,7 @@ RUNNERS = {
     'LASSONET':         LassoNetRunner,
     'LASSONETDIVMOY':   LassoNetDivMoyRunner,
     'SCGENERAI':        scGeneRAIRunner,
+    'SCGENERAIMIXED':   scGeneRAIMixedRunner,
 }
 
 
