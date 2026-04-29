@@ -25,6 +25,29 @@ class DeepSEMRunner(Runner):
     def parseOutput(self):
         raw = pd.read_csv(os.path.join(self.working_dir, "outFile.txt"))
 
+        # Normalize column names
+        raw.columns = [c.strip() for c in raw.columns]
+
+        # Try common possibilities
+        if 'Gene1' not in raw.columns:
+            if 'TF' in raw.columns:
+                raw = raw.rename(columns={'TF': 'Gene1'})
+            elif 'source' in raw.columns:
+                raw = raw.rename(columns={'source': 'Gene1'})
+
+        if 'Gene2' not in raw.columns:
+            if 'Target' in raw.columns:
+                raw = raw.rename(columns={'Target': 'Gene2'})
+            elif 'target' in raw.columns:
+                raw = raw.rename(columns={'target': 'Gene2'})
+
+        if 'EdgeWeight' not in raw.columns:
+            if 'Importance' in raw.columns:
+                raw = raw.rename(columns={'Importance': 'EdgeWeight'})
+            elif 'weight' in raw.columns:
+                raw = raw.rename(columns={'weight': 'EdgeWeight'})
+
+        # Now select
         raw = raw[['Gene1', 'Gene2', 'EdgeWeight']]
         raw['EdgeWeight'] = raw['EdgeWeight'].abs()
 
