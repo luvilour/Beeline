@@ -42,7 +42,7 @@ RUNNERS = {
     'LASSONETDIVMOY':   LassoNetDivMoyRunner,
     'SCGENERAI':        scGeneRAIRunner,
     'SCGENERAIMIXED':   scGeneRAIMixedRunner,
-    'DEEPSEMRUNNER':    DeepSEMRunner,
+    'DEEPSEM':    DeepSEMRunner,
 }
 
 
