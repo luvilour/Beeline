@@ -5,7 +5,7 @@ from torch import nn
 from torch.autograd import Variable
 from torch.nn import init
 
-Tensor = torch.cuda.FloatTensor
+Tensor = torch.FloatTensor
 
 
 def kl_loss(z_mean, z_stddev):
@@ -35,7 +35,7 @@ class LossFunctions:
         if self.eps > 0.0:
             var = var + self.eps
         return -0.5 * torch.mean(
-            torch.log(torch.FloatTensor([2.0 * np.pi]).cuda()).sum(0) + torch.log(var) + torch.pow(x - mu, 2) / var, dim=-1)
+            torch.log(torch.tensor([2.0 * np.pi], device=x.device).sum(0) + torch.log(var) + torch.pow(x - mu, 2) / var, dim=-1)
 
     def gaussian_loss(self, z, z_mu, z_var, z_mu_prior, z_var_prior):
         loss = self.log_normal(z, z_mu, z_var) - self.log_normal(z, z_mu_prior, z_var_prior)
@@ -54,14 +54,12 @@ class GumbelSoftmax(nn.Module):
         self.f_dim = f_dim
         self.c_dim = c_dim
 
-    def sample_gumbel(self, shape, is_cuda=False, eps=1e-20):
-        U = torch.rand(shape)
-        if is_cuda:
-            U = U.cuda()
+    def sample_gumbel(self, shape, device, eps=1e-20):
+        U = torch.rand(shape, device=device)
         return -torch.log(-torch.log(U + eps) + eps)
 
     def gumbel_softmax_sample(self, logits, temperature):
-        y = logits + self.sample_gumbel(logits.size(), logits.is_cuda)
+        y = logits + self.sample_gumbel(logits.size(), logits.device)
         return F.softmax(y / temperature, dim=-1)
 
     def gumbel_softmax(self, logits, temperature, ):
@@ -191,13 +189,14 @@ class VAE_EAD(nn.Module):
                     init.constant_(m.bias, 0)
 
     def _one_minus_A_t(self, adj):
-        adj_normalized = Tensor(np.eye(adj.shape[0])) - (adj.transpose(0, 1))
-        return adj_normalized
+        device = adj.device
+        identity = torch.eye(adj.shape[0], device=device)
+        return identity - adj.transpose(0, 1)
 
     def forward(self, x, dropout_mask, temperature=1.0, opt=None, ):
         x_ori = x
         x = x.view(x.size(0), -1, 1)
-        mask = Variable(torch.from_numpy(np.ones(self.n_gene) - np.eye(self.n_gene)).float(), requires_grad=False).cuda()
+        mask = Variable(torch.from_numpy(np.ones(self.n_gene) - np.eye(self.n_gene)).float(), requires_grad=False).to(device)
         adj_A_t = self._one_minus_A_t(self.adj_A * mask)
         adj_A_t_inv = torch.inverse(adj_A_t)
         out_inf = self.inference(x, adj_A_t, temperature)

@@ -97,7 +97,7 @@ class celltype_GRN_model:
             for i, data_batch in enumerate(dataloader, 0):
                 optimizer.zero_grad()
                 inputs, data_id, dropout_mask = data_batch
-                inputs = Variable(inputs.type(Tensor))
+                inputs = inputs.to(device)
                 data_ids.append(data_id.cpu().detach().numpy())
                 temperature = max(0.95 ** epoch, 0.5)
                 loss, loss_rec, loss_gauss, loss_cat, dec, y, hidden = vae(inputs,dropout_mask=dropout_mask.to(device),temperature=temperature,opt=self.opt)
