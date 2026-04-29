@@ -31,11 +31,14 @@ class LossFunctions:
         return loss
 
     def log_normal(self, x, mu, var):
-
         if self.eps > 0.0:
             var = var + self.eps
         return -0.5 * torch.mean(
-            torch.log(torch.tensor([2.0 * np.pi], device=x.device).sum(0) + torch.log(var) + torch.pow(x - mu, 2) / var, dim=-1)
+            torch.log(torch.tensor([2.0 * np.pi], device=x.device)).sum(0)
+            + torch.log(var)
+            + torch.pow(x - mu, 2) / var,
+            dim=-1
+        )
 
     def gaussian_loss(self, z, z_mu, z_var, z_mu_prior, z_var_prior):
         loss = self.log_normal(z, z_mu, z_var) - self.log_normal(z, z_mu_prior, z_var_prior)
