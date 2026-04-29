@@ -199,7 +199,12 @@ class VAE_EAD(nn.Module):
     def forward(self, x, dropout_mask, temperature=1.0, opt=None, ):
         x_ori = x
         x = x.view(x.size(0), -1, 1)
-        mask = Variable(torch.from_numpy(np.ones(self.n_gene) - np.eye(self.n_gene)).float(), requires_grad=False).to(device)
+        device = x.device
+
+        mask = torch.from_numpy(
+            np.ones(self.n_gene) - np.eye(self.n_gene)
+        ).float().to(device)
+
         adj_A_t = self._one_minus_A_t(self.adj_A * mask)
         adj_A_t_inv = torch.inverse(adj_A_t)
         out_inf = self.inference(x, adj_A_t, temperature)
