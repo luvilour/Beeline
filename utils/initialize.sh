@@ -101,7 +101,7 @@ LOCAL_IMAGES=(
     lassonet:base
     lassonetdivmoy:base
     scgenerai:base
-    scgeneraimixed:base
+    # scgeneraimixed:base
 )
 
 if [[ "$REMOVE_GRNBEELINE" = true ]]; then
@@ -331,16 +331,16 @@ if [[ "$BUILD" = true ]]; then
     fi
     popd
 
-    pushd $ROOTDIR/Algorithms/scGeneRAIMixed/
-    docker build -t scgeneraimixed:base .
-    if ([ $? = 0 ] && [[ "$(docker images -q scgeneraimixed:base 2>/dev/null)" != "" ]]); then
-        echo "Docker container for scGeneRAI is built and tagged as scgeneraimixed:base"
-    elif [ "$(docker images -q scgeneraimixed:base 2>/dev/null)" != "" ]; then
-        echo "Docker container failed to build, but an existing image exists at scgeneraimixed:base"
-    else
-        echo "Oops! Unable to build Docker container for ScGeneRAI"
-    fi
-    popd
+    # pushd $ROOTDIR/Algorithms/scGeneRAIMixed/
+    # docker build -t scgeneraimixed:base .
+    # if ([ $? = 0 ] && [[ "$(docker images -q scgeneraimixed:base 2>/dev/null)" != "" ]]); then
+    #     echo "Docker container for scGeneRAI is built and tagged as scgeneraimixed:base"
+    # elif [ "$(docker images -q scgeneraimixed:base 2>/dev/null)" != "" ]; then
+    #     echo "Docker container failed to build, but an existing image exists at scgeneraimixed:base"
+    # else
+    #     echo "Oops! Unable to build Docker container for ScGeneRAI"
+    # fi
+    # popd
 
 else
     echo "Pulling docker images from https://hub.docker.com/u/grnbeeline..."
