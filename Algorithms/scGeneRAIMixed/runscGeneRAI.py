@@ -41,7 +41,7 @@ import torch
 # Example (set in docker run command):
 #   -e SCGENERAI_EXTRA_DATASETS=/data/HSC/ExpressionData.csv:/data/VSC/ExpressionData.csv
 # ---------------------------------------------------------------------------
-EXTRA_DATASETS_ENV = "/data/HSC/ExpressionData.csv:/data/GSD/ExpressionData.csv"
+EXTRA_DATASETS_ENV = "/dataset/HSC/ExpressionData.csv:/dataset/GSD/ExpressionData.csv"
 
 
 def load_and_normalise(csv_path, col_min=None, col_max=None):
