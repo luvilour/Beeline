@@ -30,16 +30,6 @@ class celltype_GRN_model:
 
     def init_data(self,):
         data = sc.read(self.opt.data_file)
-        genes = list(data.columns)
-
-        rows = []
-        for g1 in genes:
-            for g2 in genes:
-                if g1 != g2:
-                    rows.append({"Gene1": g1, "Gene2": g2})
-
-        Ground_Truth = pd.DataFrame(rows)
-
         gene_name = list(data.var_names)
         data_values = data.X
         Dropout_Mask = (data_values != 0).astype(float)
@@ -59,6 +49,17 @@ class celltype_GRN_model:
         data_values = np.maximum(data_values, -10)
         data_values = np.minimum(data_values, 10)
         data = pd.DataFrame(data_values, index=list(data.obs_names), columns=gene_name)
+
+        genes = list(data.columns)
+
+        rows = []
+        for g1 in genes:
+            for g2 in genes:
+                if g1 != g2:
+                    rows.append({"Gene1": g1, "Gene2": g2})
+
+        Ground_Truth = pd.DataFrame(rows)
+
         TF = set(Ground_Truth['Gene1'])
         All_gene = set(Ground_Truth['Gene1']) | set(Ground_Truth['Gene2'])
         num_genes, num_nodes = data.shape[1], data.shape[0]
