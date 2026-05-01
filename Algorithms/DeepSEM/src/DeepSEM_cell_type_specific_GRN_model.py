@@ -29,8 +29,17 @@ class celltype_GRN_model:
 
 
     def init_data(self,):
-        Ground_Truth = pd.read_csv(self.opt.net_file, header=0)
         data = sc.read(self.opt.data_file)
+        genes = list(data.columns)
+
+        rows = []
+        for g1 in genes:
+            for g2 in genes:
+                if g1 != g2:
+                    rows.append({"Gene1": g1, "Gene2": g2})
+
+        Ground_Truth = pd.DataFrame(rows)
+
         gene_name = list(data.var_names)
         data_values = data.X
         Dropout_Mask = (data_values != 0).astype(float)
