@@ -42,6 +42,8 @@ class non_celltype_GRN_model:
         Evaluate_Mask = np.zeros([num_genes, num_genes])
         TF_mask = np.zeros([num_genes, num_genes])
 
+        truth_edges = set()
+
         # Only load and process ground truth if net_file is provided
         if self.opt.net_file:
             Ground_Truth = pd.read_csv(self.opt.net_file, header=0)
