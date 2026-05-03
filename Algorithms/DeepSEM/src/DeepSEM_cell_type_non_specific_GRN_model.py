@@ -32,26 +32,40 @@ class non_celltype_GRN_model:
         return A
 
     def init_data(self):
-        Ground_Truth = pd.read_csv(self.opt.net_file, header=0)
         data = sc.read(self.opt.data_file)
         gene_name = list(data.var_names)
         data_values = data.X
         Dropout_Mask = (data_values != 0).astype(float)
         data_values = (data_values - data_values.mean(0)) / (data_values.std(0))
         data = pd.DataFrame(data_values, index=list(data.obs_names), columns=gene_name)
-        TF = set(Ground_Truth['Gene1'])
-        All_gene = set(Ground_Truth['Gene1']) | set(Ground_Truth['Gene2'])
         num_genes, num_nodes = data.shape[1], data.shape[0]
         Evaluate_Mask = np.zeros([num_genes, num_genes])
         TF_mask = np.zeros([num_genes, num_genes])
-        for i, item in enumerate(data.columns):
-            for j, item2 in enumerate(data.columns):
-                if i == j:
-                    continue
-                if item2 in TF and item in All_gene:
-                    Evaluate_Mask[i, j] = 1
-                if item2 in TF:
-                    TF_mask[i, j] = 1
+
+        # Only load and process ground truth if net_file is provided
+        if self.opt.net_file:
+            Ground_Truth = pd.read_csv(self.opt.net_file, header=0)
+            TF = set(Ground_Truth['Gene1'])
+            All_gene = set(Ground_Truth['Gene1']) | set(Ground_Truth['Gene2'])
+ 
+            for i, item in enumerate(data.columns):
+                for j, item2 in enumerate(data.columns):
+                    if i == j:
+                        continue
+                    if item2 in TF and item in All_gene:
+                        Evaluate_Mask[i, j] = 1
+                    if item2 in TF:
+                        TF_mask[i, j] = 1
+
+            truth_df = pd.DataFrame(np.zeros([num_genes, num_genes]), index=data.columns, columns=data.columns)
+            for i in range(Ground_Truth.shape[0]):
+                truth_df.loc[Ground_Truth.iloc[i, 1], Ground_Truth.iloc[i, 0]] = 1
+            A_truth = truth_df.values
+            idx_rec, idx_send = np.where(A_truth)
+            truth_edges = set(zip(idx_send, idx_rec))
+        else:
+            print('No net_file provided: skipping ground truth loading. Evaluation metrics will not be computed.')
+
         feat_train = torch.FloatTensor(data.values)
         train_data = TensorDataset(feat_train, torch.LongTensor(list(range(len(feat_train)))),
                                    torch.FloatTensor(Dropout_Mask))
@@ -101,10 +115,15 @@ class non_celltype_GRN_model:
                     optimizer2.step()
             scheduler.step()
             if epoch % (opt.K1 + opt.K2) >= opt.K1:
-                Ep, Epr = evaluate(vae.adj_A.cpu().detach().numpy(), truth_edges, Evaluate_Mask)
-                best_Epr = max(Epr, best_Epr)
-                print('epoch:', epoch, 'Ep:', Ep, 'Epr:', Epr, 'loss:',
-                      np.mean(loss_all), 'mse_loss:', np.mean(mse_rec), 'kl_loss:', np.mean(loss_kl), 'sparse_loss:',
-                      np.mean(loss_sparse))
+                if truth_edges:
+                    Ep, Epr = evaluate(vae.adj_A.cpu().detach().numpy(), truth_edges, Evaluate_Mask)
+                    best_Epr = max(Epr, best_Epr)
+                    print('epoch:', epoch, 'Ep:', Ep, 'Epr:', Epr, 'loss:',
+                        np.mean(loss_all), 'mse_loss:', np.mean(mse_rec), 'kl_loss:', np.mean(loss_kl), 'sparse_loss:',
+                        np.mean(loss_sparse))
+                else:
+                    print('epoch:', epoch, 'loss:', np.mean(loss_all), 'mse_loss:', np.mean(mse_rec),
+                          'kl_loss:', np.mean(loss_kl), 'sparse_loss:', np.mean(loss_sparse))
+
         extractEdgesFromMatrix(vae.adj_A.cpu().detach().numpy(), gene_name, TFmask2).to_csv(
             opt.save_name + '/GRN_inference_result.tsv', sep='\t', index=False)
