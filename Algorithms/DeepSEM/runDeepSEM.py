@@ -40,7 +40,7 @@ def main():
 
     opt = build_opt(expr_path, save_dir)
 
-    model = non_celltype_GRN(opt)
+    model = non_celltype_GRN_model(opt)
     model.train_model()
 
     # ---- Read DeepSEM output ----
