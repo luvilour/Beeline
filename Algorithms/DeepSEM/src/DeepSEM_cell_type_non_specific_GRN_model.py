@@ -70,12 +70,6 @@ class non_celltype_GRN_model:
         train_data = TensorDataset(feat_train, torch.LongTensor(list(range(len(feat_train)))),
                                    torch.FloatTensor(Dropout_Mask))
         dataloader = DataLoader(train_data, batch_size=self.opt.batch_size, shuffle=True, num_workers=1)
-        truth_df = pd.DataFrame(np.zeros([num_genes, num_genes]), index=data.columns, columns=data.columns)
-        for i in range(Ground_Truth.shape[0]):
-            truth_df.loc[Ground_Truth.iloc[i, 1], Ground_Truth.iloc[i, 0]] = 1
-        A_truth = truth_df.values
-        idx_rec, idx_send = np.where(A_truth)
-        truth_edges = set(zip(idx_send, idx_rec))
         return dataloader, Evaluate_Mask, num_nodes, num_genes, data, truth_edges, TF_mask, gene_name
 
     def train_model(self):
