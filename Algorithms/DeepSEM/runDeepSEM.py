@@ -17,7 +17,7 @@ def build_opt(data_file, save_dir):
     opt.setting = "default"
 
     opt.data_file = data_file
-    opt.net_file = ''
+    opt.net_file = None
     opt.save_name = save_dir
 
     opt.beta = 1
