@@ -95,7 +95,7 @@ class non_celltype_GRN_model:
                 optimizer.zero_grad()
                 inputs, data_id, dropout_mask = data_batch
                 inputs = Variable(inputs.type(Tensor))
-                data_ids.append(data_id.detach().numpy())
+                data_ids.append(data_id.detach().cpu().numpy())
                 temperature = max(0.95 ** epoch, 0.5)
                 loss, loss_rec, loss_gauss, loss_cat, dec, y, hidden = vae(inputs, dropout_mask=None,
                                                                            temperature=temperature, opt=opt)
@@ -113,7 +113,7 @@ class non_celltype_GRN_model:
             scheduler.step()
             if epoch % (opt.K1 + opt.K2) >= opt.K1:
                 if truth_edges:
-                    Ep, Epr = evaluate(vae.adj_A.detach().numpy(), truth_edges, Evaluate_Mask)
+                    Ep, Epr = evaluate(vae.adj_A.detach().cpu().numpy(), truth_edges, Evaluate_Mask)
                     best_Epr = max(Epr, best_Epr)
                     print('epoch:', epoch, 'Ep:', Ep, 'Epr:', Epr, 'loss:',
                         np.mean(loss_all), 'mse_loss:', np.mean(mse_rec), 'kl_loss:', np.mean(loss_kl), 'sparse_loss:',
@@ -122,5 +122,16 @@ class non_celltype_GRN_model:
                     print('epoch:', epoch, 'loss:', np.mean(loss_all), 'mse_loss:', np.mean(mse_rec),
                           'kl_loss:', np.mean(loss_kl), 'sparse_loss:', np.mean(loss_sparse))
 
-        extractEdgesFromMatrix(vae.adj_A.detach().numpy(), gene_name, TFmask2).to_csv(
+        print('TFmask2 sum:', TFmask2.sum())  # should be > 0
+        print('adj_A shape:', vae.adj_A.shape)
+
+        print('Training complete, saving results...')
+        mask = TFmask2 if TFmask2.sum() > 0 else np.ones([num_genes, num_genes]) - np.eye(num_genes)
+        # adj_matrix = vae.adj_A.detach().cpu().numpy()
+        # print('Non-zero elements:', np.sum(abs(adj_matrix) > 0))
+        # print('Elements > 1e-6:', np.sum(abs(adj_matrix) > 1e-6))
+        # print('Elements > 1e-10:', np.sum(abs(adj_matrix) > 1e-10))
+
+        extractEdgesFromMatrix(vae.adj_A.detach().cpu().numpy(), gene_name, mask).to_csv(
             opt.save_name + '/GRN_inference_result.tsv', sep='\t', index=False)
+        print('Saved.')
