@@ -22,6 +22,7 @@ def build_opt(data_file, save_dir):
 
     opt.beta = 1
     opt.alpha = 100
+    opt.K = 1
     opt.K1 = 1
     opt.K2 = 2
     opt.n_hidden = 128
