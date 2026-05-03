@@ -3,7 +3,7 @@ import pandas as pd
 import scanpy as sc
 import numpy as np
 
-from src.DeepSEM_cell_type_specific_GRN_model import celltype_GRN_model
+from src.DeepSEM_cell_type_non_specific_GRN_model import non_celltype_GRN_model
 
 
 class Opt:
