@@ -12,7 +12,8 @@ from torch.utils.data.dataset import TensorDataset
 from src.Model import VAE_EAD
 from src.utils import evaluate, extractEdgesFromMatrix
 
-Tensor = torch.cuda.FloatTensor
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+Tensor = tensor.cuda.FloatTensor if torch.cuda.is_available() else torch.FloatTensor
 
 
 class non_celltype_GRN_model:
@@ -78,7 +79,7 @@ class non_celltype_GRN_model:
         opt = self.opt
         dataloader, Evaluate_Mask, num_nodes, num_genes, data, truth_edges, TFmask2, gene_name = self.init_data()
         adj_A_init = self.initalize_A(data)
-        vae = VAE_EAD(adj_A_init, 1, opt.n_hidden, opt.K).float().cuda()
+        vae = VAE_EAD(adj_A_init, 1, opt.n_hidden, opt.K).float().to(device)
         optimizer = optim.RMSprop(vae.parameters(), lr=opt.lr)
         optimizer2 = optim.RMSprop([vae.adj_A], lr=opt.lr * 0.2)
         scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=opt.lr_step_size, gamma=opt.gamma)
@@ -94,7 +95,7 @@ class non_celltype_GRN_model:
                 optimizer.zero_grad()
                 inputs, data_id, dropout_mask = data_batch
                 inputs = Variable(inputs.type(Tensor))
-                data_ids.append(data_id.cpu().detach().numpy())
+                data_ids.append(data_id.detach().numpy())
                 temperature = max(0.95 ** epoch, 0.5)
                 loss, loss_rec, loss_gauss, loss_cat, dec, y, hidden = vae(inputs, dropout_mask=None,
                                                                            temperature=temperature, opt=opt)
@@ -112,7 +113,7 @@ class non_celltype_GRN_model:
             scheduler.step()
             if epoch % (opt.K1 + opt.K2) >= opt.K1:
                 if truth_edges:
-                    Ep, Epr = evaluate(vae.adj_A.cpu().detach().numpy(), truth_edges, Evaluate_Mask)
+                    Ep, Epr = evaluate(vae.adj_A.detach().numpy(), truth_edges, Evaluate_Mask)
                     best_Epr = max(Epr, best_Epr)
                     print('epoch:', epoch, 'Ep:', Ep, 'Epr:', Epr, 'loss:',
                         np.mean(loss_all), 'mse_loss:', np.mean(mse_rec), 'kl_loss:', np.mean(loss_kl), 'sparse_loss:',
@@ -121,5 +122,5 @@ class non_celltype_GRN_model:
                     print('epoch:', epoch, 'loss:', np.mean(loss_all), 'mse_loss:', np.mean(mse_rec),
                           'kl_loss:', np.mean(loss_kl), 'sparse_loss:', np.mean(loss_sparse))
 
-        extractEdgesFromMatrix(vae.adj_A.cpu().detach().numpy(), gene_name, TFmask2).to_csv(
+        extractEdgesFromMatrix(vae.adj_A.detach().numpy(), gene_name, TFmask2).to_csv(
             opt.save_name + '/GRN_inference_result.tsv', sep='\t', index=False)
