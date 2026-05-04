@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 from lassonet import LassoNetRegressor
+from sklearn.preprocessing import StandardScaler
 import torch
 import argparse
 
@@ -18,6 +19,9 @@ def importances_filling(importances, expr_df, gene_being_regressed):
     # print(f"The shape of the X_train is {X_train.shape}")
     y_train = expr_df.loc[target_gene].to_numpy()
     # print(f"The shape of the y_train is {y_train.shape}")
+
+    scaler = StandardScaler()
+    X_train = scaler.fit_transform(X_train)
 
     model = LassoNetRegressor(hidden_dims=(5, 5))
     oracle, order, wrong, paths, prob = model.stability_selection(X_train, y_train)
