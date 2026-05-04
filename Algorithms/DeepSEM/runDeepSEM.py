@@ -20,7 +20,7 @@ def build_opt(data_file, save_dir):
     opt.net_file = None
     opt.save_name = save_dir
 
-    opt.n_epochs = 10
+    opt.n_epochs = 100
 
     opt.beta = 1
     opt.alpha = 100
