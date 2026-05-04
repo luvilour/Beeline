@@ -3,16 +3,18 @@
 input_settings:
 
     # Base input directory
-    input_dir : "inputs/scRNA-Seq"
+    input_dir : "inputs"
 
     # Each dataset entry represents a condition group. Its subdirectories
     # are individual runs (variants) listed under 'runs'.
     datasets:
 
-        - dataset_id: "hESC"
+        - dataset_id: "scRNA-Seq"
           should_run: [True]
           exprData: "ExpressionData_filtered.csv"
-          groundTruthNetwork: "../../Networks/human/STRING.csv"
+          groundTruthNetwork: "STRING-network.csv"
+          runs:
+            - run_id: "hESC"
 
 
     algorithms:
@@ -37,25 +39,25 @@ input_settings:
         # #   should_run: [True]
         # #   params: {}
         #
-        - algorithm_id: "GENIE3"
-          image: "grnbeeline/arboreto:base"
-          should_run: [True]
-          params: {}
-
-        - algorithm_id: "GRNBOOST2"
-          image: "grnbeeline/arboreto:base"
-          should_run: [True]
-          params: {}
-
-        - algorithm_id: LASSONET
-          image: "lassonet:base"
-          should_run: [True]
-          params: {}
-
-        - algorithm_id: LASSONETDIVMOY
-          image: "lassonetdivmoy:base"
-          should_run: [True]
-          params: {}
+        # - algorithm_id: "GENIE3"
+        #   image: "grnbeeline/arboreto:base"
+        #   should_run: [True]
+        #   params: {}
+        #
+        # - algorithm_id: "GRNBOOST2"
+        #   image: "grnbeeline/arboreto:base"
+        #   should_run: [True]
+        #   params: {}
+        #
+        # - algorithm_id: LASSONET
+        #   image: "lassonet:base"
+        #   should_run: [True]
+        #   params: {}
+        #
+        # - algorithm_id: LASSONETDIVMOY
+        #   image: "lassonetdivmoy:base"
+        #   should_run: [True]
+        #   params: {}
 
 # Output Settings: initialize base output folder names
 output_settings:
