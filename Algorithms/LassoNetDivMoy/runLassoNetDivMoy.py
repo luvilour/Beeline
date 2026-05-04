@@ -23,6 +23,11 @@ def importances_filling(importances, expr_df, gene_being_regressed):
     scaler = StandardScaler()
     X_train = scaler.fit_transform(X_train)
 
+    var = X_train.var(axis=0)
+    X_train = X_train[:, var > 1e-8]
+
+    X_train = np.nan_to_num(X_train, nan=0.0, posinf=0.0, neginf=0.0)
+
     model = LassoNetRegressor(hidden_dims=(5, 5))
     oracle, order, wrong, paths, prob = model.stability_selection(X_train, y_train)
     # print(f"The shape of the prob is {prob.shape}")
