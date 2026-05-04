@@ -3,41 +3,47 @@ import os
 import pandas as pd
 
 
-def load_gene_list(gene_file, from_expression=False):
+def select_top_genes(gene_ordering_file, top_n, method):
     """
-    Load list of genes either from:
-    - ExpressionData.csv (rows = genes)
-    - Simple text file (1 gene per line)
+    Select top N genes from GeneOrdering.csv
     """
-    if not os.path.exists(gene_file):
-        raise FileNotFoundError(f'Gene file not found: {gene_file}')
+    if not os.path.exists(gene_ordering_file):
+        raise FileNotFoundError(f'Gene ordering file not found: {gene_ordering_file}')
 
-    if from_expression:
-        df = pd.read_csv(gene_file, index_col=0)
-        genes = df.index.tolist()
+    ordering = pd.read_csv(gene_ordering_file, index_col=0)
+
+    if method == 'rank':
+        top_genes = ordering.head(top_n).index.tolist()
+
+    elif method == 'variance':
+        if 'Variance' not in ordering.columns:
+            raise ValueError("Column 'Variance' not found in GeneOrdering.csv")
+        top_genes = ordering.nlargest(top_n, 'Variance').index.tolist()
+
     else:
-        with open(gene_file, 'r') as f:
-            genes = [line.strip() for line in f if line.strip()]
+        raise ValueError("method must be 'rank' or 'variance'")
 
-    print(f'[GT filter] Loaded {len(genes)} genes')
-    return set(genes)
+    print(f'[GT filter] Selected {len(top_genes)} genes (top {top_n}, method={method})')
+    return set(top_genes)
 
 
 def detect_gene_columns(df):
     """
-    Detect gene columns in ground truth
+    Detect gene columns in ground truth file
     """
     cols = df.columns.tolist()
 
     if 'Gene1' in cols and 'Gene2' in cols:
         return 'Gene1', 'Gene2'
 
-    # fallback: assume first two columns
     print(f'[GT filter] WARNING: Using first two columns as gene columns: {cols[:2]}')
     return cols[0], cols[1]
 
 
 def filter_ground_truth(gt_file, gene_set, output_file):
+    """
+    Filter ground truth to keep only edges between selected genes
+    """
     if not os.path.exists(gt_file):
         raise FileNotFoundError(f'Ground truth file not found: {gt_file}')
 
@@ -58,32 +64,38 @@ def filter_ground_truth(gt_file, gene_set, output_file):
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Filter ground truth network by gene list')
-
-    parser.add_argument(
-        '--gt_file', required=True,
-        help='Path to ground truth network CSV'
+    parser = argparse.ArgumentParser(
+        description='Filter ground truth using top N genes from GeneOrdering.csv'
     )
 
-    parser.add_argument(
-        '--gene_file', required=True,
-        help='Path to gene list OR ExpressionData.csv'
-    )
+    parser.add_argument('--gene_ordering_file', required=True,
+                        help='Path to GeneOrdering.csv')
 
-    parser.add_argument(
-        '--from_expression', action='store_true',
-        help='Set if gene_file is an ExpressionData.csv'
-    )
+    parser.add_argument('--gt_file', required=True,
+                        help='Path to ground truth CSV')
 
-    parser.add_argument(
-        '--output_file', required=True,
-        help='Output filtered ground truth file'
-    )
+    parser.add_argument('--top_n', type=int, default=500,
+                        help='Number of genes to keep')
+
+    parser.add_argument('--method', choices=['rank', 'variance'], default='rank',
+                        help='Gene selection method')
+
+    parser.add_argument('--output_file', required=True,
+                        help='Output filtered ground truth file')
 
     args = parser.parse_args()
 
-    gene_set = load_gene_list(args.gene_file, args.from_expression)
-    filter_ground_truth(args.gt_file, gene_set, args.output_file)
+    gene_set = select_top_genes(
+        args.gene_ordering_file,
+        args.top_n,
+        args.method
+    )
+
+    filter_ground_truth(
+        args.gt_file,
+        gene_set,
+        args.output_file
+    )
 
 
 if __name__ == '__main__':
