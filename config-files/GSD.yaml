@@ -9,11 +9,11 @@ input_settings:
     # are individual runs (variants) listed under 'runs'.
     datasets:
 
-        - dataset_id: "DREAM4"
-          should_run: [True]
-          groundTruthNetwork: "GroundTruthNetwork.csv"
-          runs:
-            - run_id: "DREAM4-100-1"
+        # - dataset_id: "DREAM4"
+        #   should_run: [True]
+        #   groundTruthNetwork: "GroundTruthNetwork.csv"
+        #   runs:
+        #     - run_id: "DREAM4-100-1"
 
         - dataset_id: "GSD"
           should_run: [True]

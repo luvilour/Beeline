@@ -11,10 +11,10 @@ input_settings:
 
         - dataset_id: "scRNA-Seq"
           should_run: [True]
-          exprData: "ExpressionData_filtered.csv"
+          exprData: "ExpressionData.csv"
           groundTruthNetwork: "STRING-network.csv"
           runs:
-            - run_id: "hESC"
+            - run_id: "hESC_filtered"
 
 
     algorithms:

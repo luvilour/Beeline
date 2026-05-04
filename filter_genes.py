@@ -46,9 +46,15 @@ def process_dataset_folder(folder, top_n, method):
     Process a single dataset folder containing ExpressionData.csv and GeneOrdering.csv.
     Writes ExpressionData_filtered.csv in the same folder.
     """
+    output_folder = folder + "_filtered"
+    try:
+        os.mkdir(output_folder)
+    except:
+        print(f"The directory {output_folder} already exists")
+
     expression_file  = os.path.join(folder, 'ExpressionData.csv')
     gene_ordering_file = os.path.join(folder, 'GeneOrdering.csv')
-    output_file      = os.path.join(folder, 'ExpressionData_filtered.csv')
+    output_file      = os.path.join(output_folder, 'ExpressionData.csv')
 
     if not os.path.exists(expression_file):
         print(f'[filter_genes] WARNING: No ExpressionData.csv in {folder}, skipping.')
