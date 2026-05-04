@@ -1,11 +1,5 @@
 #!/bin/bash
 
-echo "Filtering expression data..."
-python filter_genes.py \
-    --input_dir inputs/scRNA-seq/ \
-    --top_n 500 \
-    --method rank
-
 set -e                                     # abandon script on error
 BASEDIR="$(dirname "$(readlink -f "$0")")" # set env variable for current directory (utils/)
 ROOTDIR="$(dirname "$BASEDIR")"            # parent directory of BASEDIR (repo root)
