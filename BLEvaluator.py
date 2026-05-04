@@ -1,4 +1,5 @@
 import argparse
+import gc
 
 import yaml
 
@@ -85,8 +86,15 @@ def main():
     evaluation_data = EvaluationData(config)
 
     if args.auc:
+        evaluation_data = EvaluationData(config)
         AUPRC()(evaluation_data)
+        del evaluation_data
+        gc.collect()
+
+        evaluation_data = EvaluationData(config)
         AUROC()(evaluation_data)
+        del evaluation_data
+        gc.collect()
 
     if args.jaccard:
         Jaccard()(evaluation_data)
