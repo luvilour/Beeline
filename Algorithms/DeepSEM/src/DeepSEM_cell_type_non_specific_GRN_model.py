@@ -13,7 +13,7 @@ from src.Model import VAE_EAD
 from src.utils import evaluate, extractEdgesFromMatrix
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-Tensor = tensor.cuda.FloatTensor if torch.cuda.is_available() else torch.FloatTensor
+Tensor = torch.cuda.FloatTensor if torch.cuda.is_available() else torch.FloatTensor
 
 
 class non_celltype_GRN_model:
@@ -34,6 +34,7 @@ class non_celltype_GRN_model:
 
     def init_data(self):
         data = sc.read(self.opt.data_file)
+        data = data.T
         gene_name = list(data.var_names)
         data_values = data.X
         Dropout_Mask = (data_values != 0).astype(float)
