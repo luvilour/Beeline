@@ -1,0 +1,65 @@
+# Input Settings: initialize base input folder names,
+# dataset collections, and algorithms to run over
+input_settings:
+
+    # Base input directory
+    input_dir : "inputs/scRNA-Seq"
+
+    # Each dataset entry represents a condition group. Its subdirectories
+    # are individual runs (variants) listed under 'runs'.
+    datasets:
+
+        - dataset_id: "hESC"
+          should_run: [True]
+          exprData: "ExpressionData_filtered.csv"
+          groundTruthNetwork: "../../Networks/human/STRING.csv"
+
+
+    algorithms:
+
+        # - algorithm_id: "GRNVBEM"
+        #   image: "grnbeeline/grnvbem:base"
+        #   should_run: [True]
+        #   params: {}
+
+        - algorithm_id: DEEPSEM
+          image: "deepsem:base"
+          should_run: [True]
+          params: {}
+
+        # - algorithm_id: SCGENERAI
+        #   image: "scgenerai:base"
+        #   should_run: [True]
+        #   params: {}
+        #
+        # # - algorithm_id: SCGENERAIMIXED
+        # #   image: "scgeneraimixed:base"
+        # #   should_run: [True]
+        # #   params: {}
+        #
+        - algorithm_id: "GENIE3"
+          image: "grnbeeline/arboreto:base"
+          should_run: [True]
+          params: {}
+
+        - algorithm_id: "GRNBOOST2"
+          image: "grnbeeline/arboreto:base"
+          should_run: [True]
+          params: {}
+
+        - algorithm_id: LASSONET
+          image: "lassonet:base"
+          should_run: [True]
+          params: {}
+
+        - algorithm_id: LASSONETDIVMOY
+          image: "lassonetdivmoy:base"
+          should_run: [True]
+          params: {}
+
+# Output Settings: initialize base output folder names
+output_settings:
+
+    # Base output directory
+    output_dir: "outputs"
+    experiment_id: "testing_STRING_hESC"
