@@ -14,12 +14,12 @@ RUN apt-get update && apt-get install -y \
 
 # Python deps
 RUN pip install \
-    torch==2.0.1 \
-    pandas==2.2.2 \
-    numpy==1.23.5 \
-    scikit-learn==0.22.0 \
-    scipy==1.10.1 \
-    tqdm==4.66.4
+    torch \
+    pandas \
+    numpy \
+    scikit-learn \
+    scipy \
+    tqdm
 
 # Copy DeepSEM source
 COPY src /GRANet/src
