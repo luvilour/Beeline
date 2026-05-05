@@ -30,7 +30,13 @@ def importances_filling(importances, expr_df, gene_being_regressed):
     X_train = np.nan_to_num(X_train, nan=0.0, posinf=0.0, neginf=0.0)
 
     model = LassoNetRegressor(hidden_dims=(5, 5))
-    oracle, order, wrong, paths, prob = model.stability_selection(X_train, y_train)
+    try:
+        oracle, order, wrong, paths, prob = model.stability_selection(X_train, y_train)
+    except (AssertionError, RuntimeError, ValueError) as e:
+        # A specific bootstrap subsample caused numerical explosion —
+        # leave this gene's row as zeros (no predicted regulators)
+        print(f"Skipping gene {target_gene} (index {gene_being_regressed}): {e}")
+        return importances
     # print(f"The shape of the prob is {prob.shape}")
 
     probs = torch.sum(prob, dim=0)/prob.shape[0]
