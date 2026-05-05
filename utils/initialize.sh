@@ -102,6 +102,7 @@ LOCAL_IMAGES=(
     lassonetdivmoy:base
     scgenerai:base
     # scgeneraimixed:base
+    granet:base
 )
 
 if [[ "$REMOVE_GRNBEELINE" = true ]]; then
@@ -350,6 +351,17 @@ if [[ "$BUILD" = true ]]; then
         echo "Docker container failed to build, but an existing image exists at deepsem:base"
     else
         echo "Oops! Unable to build Docker container for DeepSEM"
+    fi
+    popd
+
+    pushd $ROOTDIR/Algorithms/GRANet/
+    docker build -t granet:base .
+    if ([ $? = 0 ] && [[ "$(docker images -q granet:base 2>/dev/null)" != "" ]]); then
+        echo "Docker container for GRANet is built and tagged as granet:base"
+    elif [ "$(docker images -q granet:base 2>/dev/null)" != "" ]; then
+        echo "Docker container failed to build, but an existing image exists at granet:base"
+    else
+        echo "Oops! Unable to build Docker container for GRANet"
     fi
     popd
 
