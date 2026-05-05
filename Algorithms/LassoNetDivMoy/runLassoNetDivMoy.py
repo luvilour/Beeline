@@ -47,16 +47,12 @@ def importances_filling(importances, expr_df, gene_being_regressed):
     # print(f"The probabilities of the different genes are here: {prob} and the mean for all genes  is {probs}")
     # print(f"The size of the probs is the following {probs.shape}")
 
-    cnt = order.size(dim=0)
-
-    i = 0
     for cnt in range(importances.shape[1]):
-        if cnt == gene_being_regressed - 1:
+        if cnt == gene_being_regressed:
             importances[gene_being_regressed-1][cnt] = -200
         else:
-            importances[gene_being_regressed-1][cnt] = probs[i]
-
-            i += 1
+            g = genes[cnt]
+            importances[gene_being_regressed-1][cnt] = prob_map.get(g, 0.0)
 
     return importances
 
