@@ -190,8 +190,13 @@ def main():
     loss_BCE = nn.BCEWithLogitsLoss(pos_weight=torch.tensor(1.0))
     best_model = SavaBestModel(model_dir)
 
-    val_tensor = torch.from_numpy(val).to(device)
-    test_tensor = torch.from_numpy(test).to(device)
+    val_indices = torch.from_numpy(val[:, :2].astype(np.int64)).to(device)
+    val_labels  = torch.from_numpy(val[:, 2].astype(np.float32)).to(device)
+    val_tensor  = torch.cat([val_indices, val_labels.unsqueeze(1)], dim=1)
+
+    test_indices = torch.from_numpy(test[:, :2].astype(np.int64)).to(device)
+    test_labels  = torch.from_numpy(test[:, 2].astype(np.float32)).to(device)
+    test_tensor  = torch.cat([test_indices, test_labels.unsqueeze(1)], dim=1)
 
     print("Training GRANet...")
     metrics = []
@@ -213,7 +218,9 @@ def main():
 
         with torch.no_grad():
             model.eval()
-            score_val = torch.sigmoid(model(data_feature, smoothed, discretized, adj, val_tensor))
+            val_sample = val_tensor.clone()
+            val_sample[:, :2] = val_sample[:, :2].long()
+            score_val = torch.sigmoid(model(data_feature, smoothed, discretized, adj, val_sample))
             auroc, auprc = Evaluation(y_pred=score_val, y_true=val_tensor[:, -1])
             metrics.append([auroc, auprc])
             best_model(auroc, auprc, model)

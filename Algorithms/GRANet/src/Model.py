@@ -81,8 +81,8 @@ class GRANet(nn.Module):
 
         self.tf_ouput = tf_embed
         self.target_output = target_embed
-        train_tf = tf_embed[train_sample[:, 0]]
-        train_target = target_embed[train_sample[:, 1]]
+        train_tf = tf_embed[train_sample[:, 0].long()]
+        train_target = target_embed[train_sample[:, 1].long()]
         pred = self.decode(train_tf, train_target)
 
         return pred

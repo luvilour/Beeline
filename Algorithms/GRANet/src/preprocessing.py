@@ -39,8 +39,8 @@ class scRNADataset(Dataset):
         adj = sp.dok_matrix((self.num_gene, self.num_gene), dtype=np.float32)
 
         for pos in self.train_set:
-            tf = pos[0]
-            target = pos[1]
+            tf = int(pos[0])
+            target = int(pos[1])
 
             if direction == False:
                 if pos[-1] == 1:
