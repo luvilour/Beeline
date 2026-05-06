@@ -18,11 +18,12 @@ class GRANetRunner(Runner):
         )
         expr.to_csv(os.path.join(self.working_dir, "ExpressionData.csv"))
 
-        net_src = os.path.join(self.input_dir, "refNetwork.csv")
+        net_src = os.path.join(self.input_dir, "../GroundTruthNetwork.csv")
         if os.path.exists(net_src):
             net = pd.read_csv(net_src)
             net = net[['Gene1', 'Gene2']]
-            net.to_csv(os.path.join(self.working_dir, "network.csv"), index=False)
+            train_net = net.sample(frac=0.8)
+            train_net.to_csv(os.path.join(self.working_dir, "network.csv"), index=False)
         # If absent, no network.csv is written — runGRANet.py will detect this
         # and fall back to a fully connected all-gene graph
 
