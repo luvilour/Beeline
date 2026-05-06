@@ -28,7 +28,7 @@ def main():
     # Clip test data to [0,1] in case it falls outside the training range
     test_data = ((test_data - col_min) / col_range).clip(0, 1)
 
-    nepochs = 1500
+    nepochs = 150
     model_depth = 2
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
