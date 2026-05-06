@@ -1,0 +1,51 @@
+distributed.comm.inproc - WARNING - Closing dangling queue in <InProc  local=inproc://172.17.0.2/9/1 remote=inproc://172.17.0.2/9/8>
+Traceback (most recent call last):
+  File "runArboreto.py", line 43, in <module>
+    main(sys.argv)
+  File "runArboreto.py", line 32, in main
+    network = genie3(inDF.to_numpy(), client_or_address = client, gene_names = inDF.columns)
+  File "/opt/conda/lib/python3.7/site-packages/arboreto/algo.py", line 73, in genie3
+    limit=limit, seed=seed, verbose=verbose)
+  File "/opt/conda/lib/python3.7/site-packages/arboreto/algo.py", line 135, in diy
+    .compute(graph, sync=True) \
+  File "/opt/conda/lib/python3.7/site-packages/distributed/client.py", line 2919, in compute
+    result = self.gather(futures)
+  File "/opt/conda/lib/python3.7/site-packages/distributed/client.py", line 1993, in gather
+    asynchronous=asynchronous,
+  File "/opt/conda/lib/python3.7/site-packages/distributed/client.py", line 834, in sync
+    self.loop, func, *args, callback_timeout=callback_timeout, **kwargs
+  File "/opt/conda/lib/python3.7/site-packages/distributed/utils.py", line 339, in sync
+    raise exc.with_traceback(tb)
+  File "/opt/conda/lib/python3.7/site-packages/distributed/utils.py", line 323, in f
+    result[0] = yield future
+  File "/opt/conda/lib/python3.7/site-packages/tornado/gen.py", line 735, in run
+    value = future.result()
+concurrent.futures._base.CancelledError
+tornado.application - ERROR - Exception in callback functools.partial(<bound method IOLoop._discard_future_result of <tornado.platform.asyncio.AsyncIOLoop object at 0x7f13c16f1290>>, <Task finished coro=<SpecCluster._correct_state_internal() done, defined at /opt/conda/lib/python3.7/site-packages/distributed/deploy/spec.py:320> exception=OSError("Timed out trying to connect to 'inproc://172.17.0.2/9/1' after 10 s: Timed out trying to connect to 'inproc://172.17.0.2/9/1' after 10 s: connect() didn't finish in time")>)
+Traceback (most recent call last):
+  File "/opt/conda/lib/python3.7/site-packages/distributed/comm/core.py", line 322, in connect
+    _raise(error)
+  File "/opt/conda/lib/python3.7/site-packages/distributed/comm/core.py", line 275, in _raise
+    raise IOError(msg)
+OSError: Timed out trying to connect to 'inproc://172.17.0.2/9/1' after 10 s: connect() didn't finish in time
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/conda/lib/python3.7/site-packages/tornado/ioloop.py", line 743, in _run_callback
+    ret = callback()
+  File "/opt/conda/lib/python3.7/site-packages/tornado/ioloop.py", line 767, in _discard_future_result
+    future.result()
+  File "/opt/conda/lib/python3.7/site-packages/distributed/deploy/spec.py", line 401, in _close
+    await self._correct_state()
+  File "/opt/conda/lib/python3.7/site-packages/distributed/deploy/spec.py", line 328, in _correct_state_internal
+    await self.scheduler_comm.retire_workers(workers=list(to_close))
+  File "/opt/conda/lib/python3.7/site-packages/distributed/core.py", line 810, in send_recv_from_rpc
+    comm = await self.live_comm()
+  File "/opt/conda/lib/python3.7/site-packages/distributed/core.py", line 772, in live_comm
+    **self.connection_args,
+  File "/opt/conda/lib/python3.7/site-packages/distributed/comm/core.py", line 334, in connect
+    _raise(error)
+  File "/opt/conda/lib/python3.7/site-packages/distributed/comm/core.py", line 275, in _raise
+    raise IOError(msg)
+OSError: Timed out trying to connect to 'inproc://172.17.0.2/9/1' after 10 s: Timed out trying to connect to 'inproc://172.17.0.2/9/1' after 10 s: connect() didn't finish in time
