@@ -54,8 +54,13 @@ input_settings:
         #   should_run: [True]
         #   params: {}
         #
-        - algorithm_id: LASSONETDIVMOY
-          image: "lassonetdivmoy:base"
+        # - algorithm_id: LASSONETDIVMOY
+        #   image: "lassonetdivmoy:base"
+        #   should_run: [True]
+        #   params: {}
+
+        - algorithm_id: GRANET
+          image: "granet:base"
           should_run: [True]
           params: {}
 
@@ -64,4 +69,4 @@ output_settings:
 
     # Base output directory
     output_dir: "outputs"
-    experiment_id: "testing_STRING_hESC"
+    experiment_id: "testing_GRANET_on_STRING_hESC"
