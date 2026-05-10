@@ -40,6 +40,8 @@ def importances_filling(importances, expr_df, gene_being_regressed):
 
     probs = torch.sum(prob, dim=0)/prob.shape[0]
 
+    prob_map = {g: probs[i].item() for i, g in enumerate(expressed_genes)}
+
     # print(f"The probabilities of the different genes are here: {prob} and the mean for all genes  is {probs}")
     # print(f"The size of the probs is the following {probs.shape}")
 
