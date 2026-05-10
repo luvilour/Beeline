@@ -20,12 +20,13 @@ def importances_filling(importances, expr_df, gene_being_regressed):
     y_train = expr_df.loc[target_gene].to_numpy()
     # print(f"The shape of the y_train is {y_train.shape}")
 
+    min_cells = int(0.2 * X_train.shape[0])
+    expressed_mask = (X_train != 0).sum(axis=0) >= min_cells
+    X_train = X_train[:, expressed_mask]
+    expressed_genes = [g for g, keep in zip(other_genes, expressed_mask) if keep]
+
     scaler = StandardScaler()
     X_train = scaler.fit_transform(X_train)
-
-    var = X_train.var(axis=0)
-    X_train = X_train[:, var > 1e-8]
-
     X_train = np.nan_to_num(X_train, nan=0.0, posinf=0.0, neginf=0.0)
 
     model = LassoNetRegressor(hidden_dims=(5, 5))
