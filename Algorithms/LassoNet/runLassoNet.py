@@ -8,7 +8,6 @@ import argparse
 def importances_filling(importances, expr_df, gene_being_regressed):
     # Replaces your Helper.make_X_y_from_tsv call
     # expr_df is the full expression matrix (genes x cells)
-    print("Importances filling is running")
     genes = expr_df.index.tolist()
     n_genes = len(genes)
 
@@ -51,7 +50,6 @@ def importances_filling(importances, expr_df, gene_being_regressed):
 
 def main():
     # Input/output paths are fixed to the Docker mounted volume
-    print("main is running")
     expr_path = "/usr/working_dir/ExpressionData.csv"
     output_path = "/usr/working_dir/outFile.txt"
 

@@ -99,6 +99,7 @@ LOCAL_IMAGES=(
     # sincerities:base
     # scsgl:base
     lassonet:base
+    lassonetprob:base
     lassonetprobmoy:base
     scgenerai:base
     # scgeneraimixed:base
