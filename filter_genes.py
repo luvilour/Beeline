@@ -3,10 +3,10 @@ import os
 import pandas as pd
 
 
-def filter_expression_by_top_genes(expression_file, gene_ordering_file, top_n, method, output_file):
+def filter_expression_by_top_genes(expression_file, TF_file, gene_ordering_file, top_n, method, output_file):
     """
     Filter an ExpressionData.csv to keep only the top N most variable genes
-    based on a GeneOrdering.csv file.
+    based on a GeneOrdering.csv file added to the TFs genes.
 
     method='rank'     -> top N genes by p-value rank (pre-sorted in GeneOrdering.csv)
     method='variance' -> top N genes by variance score
@@ -17,22 +17,42 @@ def filter_expression_by_top_genes(expression_file, gene_ordering_file, top_n, m
         raise FileNotFoundError(f'Gene ordering file not found: {gene_ordering_file}')
 
     expr = pd.read_csv(expression_file, index_col=0)
+    tfs = pd.read_csv(TF_file, index_col=0)
     ordering = pd.read_csv(gene_ordering_file, index_col=0)
 
+    tfs_genes = tfs.index.tolist()
+
     if method == 'rank':
-        top_genes = ordering.head(top_n).index.tolist()
+        top_genes = ordering.index.tolist()
     elif method == 'variance':
         if 'Variance' not in ordering.columns:
             raise ValueError("Column 'Variance' not found in GeneOrdering.csv")
-        top_genes = ordering.nlargest(top_n, 'Variance').index.tolist()
+        top_genes = ordering.sort_values(by=["Variance"]).index.tolist()
     else:
         raise ValueError("method must be 'rank' or 'variance'")
 
-    genes_to_keep = [g for g in top_genes if g in expr.index]
-    missing = top_n - len(genes_to_keep)
+    i = 0
+    top_gene_n = []
+    for g in top_genes:
+        if i == top_n:
+            break
+        if not g in tfs_genes:
+            top_gene_n.append(g)
+            i += 1
+    top_genes = top_gene_n
+
+    genes_to_keep = []
+    for g in tfs_genes:
+        if g in expr.index:
+            genes_to_keep.append(g)
+    for g in top_genes:
+        if g in expr.index:
+            genes_to_keep.append(g)
+
+    missing = top_n + len(tfs_genes) - len(genes_to_keep)
 
     print(f'[filter_genes] Dataset : {os.path.dirname(expression_file) or "."}')
-    print(f'[filter_genes] Requested: {top_n} | Found: {len(genes_to_keep)} | Missing: {missing}')
+    print(f'[filter_genes] Requested: {top_n + len(tfs_genes)} | Found: {len(genes_to_keep)} | Missing: {missing}')
 
     expr_filtered = expr.loc[genes_to_keep]
     expr_filtered.to_csv(output_file)
@@ -41,12 +61,12 @@ def filter_expression_by_top_genes(expression_file, gene_ordering_file, top_n, m
     return expr_filtered
 
 
-def process_dataset_folder(folder, top_n, method):
+def process_dataset_folder(folder, tfs_genes, top_n, method):
     """
     Process a single dataset folder containing ExpressionData.csv and GeneOrdering.csv.
     Writes ExpressionData_filtered.csv in the same folder.
     """
-    output_folder = folder + "_filtered"
+    output_folder = folder + "_filtered_tfs"
     try:
         os.mkdir(output_folder)
     except:
@@ -63,7 +83,7 @@ def process_dataset_folder(folder, top_n, method):
         print(f'[filter_genes] WARNING: No GeneOrdering.csv in {folder}, skipping.')
         return
 
-    filter_expression_by_top_genes(expression_file, gene_ordering_file, top_n, method, output_file)
+    filter_expression_by_top_genes(expression_file, tfs_genes, gene_ordering_file, top_n, method, output_file)
 
 
 def main():
@@ -73,6 +93,10 @@ def main():
     parser.add_argument(
         '--input_dir', type=str, required=True,
         help='Root input directory. Every subfolder containing ExpressionData.csv + GeneOrdering.csv will be processed.'
+    )
+    parser.add_argument(
+        '--tfs_genes', type=str, required=True,
+        help='The tfs to find the tfs genes to process'
     )
     parser.add_argument(
         '--top_n', type=int, default=500,
@@ -96,7 +120,7 @@ def main():
 
     print(f'[filter_genes] Found {len(dataset_folders)} dataset(s) to process.')
     for folder in sorted(dataset_folders):
-        process_dataset_folder(folder, opt.top_n, opt.method)
+        process_dataset_folder(folder, opt.tfs_genes, opt.top_n, opt.method)
 
     print('[filter_genes] Done.')
 

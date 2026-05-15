@@ -3,7 +3,7 @@ import os
 import pandas as pd
 
 
-def select_top_genes(gene_ordering_file, top_n, method):
+def select_top_genes(TF_file, gene_ordering_file, top_n, method):
     """
     Select top N genes from GeneOrdering.csv
     """
@@ -11,17 +11,30 @@ def select_top_genes(gene_ordering_file, top_n, method):
         raise FileNotFoundError(f'Gene ordering file not found: {gene_ordering_file}')
 
     ordering = pd.read_csv(gene_ordering_file, index_col=0)
+    tfs = pd.read_csv(TF_file, index_col=0)
 
     if method == 'rank':
-        top_genes = ordering.head(top_n).index.tolist()
+        top_genes = ordering.index.tolist()
 
     elif method == 'variance':
         if 'Variance' not in ordering.columns:
             raise ValueError("Column 'Variance' not found in GeneOrdering.csv")
-        top_genes = ordering.nlargest(top_n, 'Variance').index.tolist()
+        top_genes = ordering.sort_values(by=["Variance"]).index.tolist()
 
     else:
         raise ValueError("method must be 'rank' or 'variance'")
+
+    i = 0
+    top_gene_n = []
+    for g in top_genes:
+        if i == top_n:
+            break
+        if not g in tfs_genes:
+            top_gene_n.append(g)
+            i += 1
+    top_genes = top_gene_n
+
+    top_genes.append(tfs_genes)
 
     print(f'[GT filter] Selected {len(top_genes)} genes (top {top_n}, method={method})')
     return set(top_genes)
@@ -71,6 +84,9 @@ def main():
     parser.add_argument('--gene_ordering_file', required=True,
                         help='Path to GeneOrdering.csv')
 
+    parser.add_argument('--tfs_genes', required=True,
+                        help='Path to GeneTFs.csv')
+
     parser.add_argument('--gt_file', required=True,
                         help='Path to ground truth CSV')
 
@@ -86,6 +102,7 @@ def main():
     args = parser.parse_args()
 
     gene_set = select_top_genes(
+        args.tfs_genes,
         args.gene_ordering_file,
         args.top_n,
         args.method
