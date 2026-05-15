@@ -24,31 +24,31 @@ input_settings:
         #   should_run: [True]
         #   params: {}
 
-        # - algorithm_id: DEEPSEM
-        #   image: "deepsem:base"
+        - algorithm_id: DEEPSEM
+          image: "deepsem:base"
+          should_run: [True]
+          params: {}
+
+        - algorithm_id: SCGENERAI
+          image: "scgenerai:base"
+          should_run: [True]
+          params: {}
+
+        # - algorithm_id: SCGENERAIMIXED
+        #   image: "scgeneraimixed:base"
         #   should_run: [True]
         #   params: {}
-        #
-        # - algorithm_id: SCGENERAI
-        #   image: "scgenerai:base"
-        #   should_run: [True]
-        #   params: {}
-        #
-        # # - algorithm_id: SCGENERAIMIXED
-        # #   image: "scgeneraimixed:base"
-        # #   should_run: [True]
-        # #   params: {}
-        #
-        # - algorithm_id: "GENIE3"
-        #   image: "grnbeeline/arboreto:base"
-        #   should_run: [True]
-        #   params: {}
-        #
-        # - algorithm_id: "GRNBOOST2"
-        #   image: "grnbeeline/arboreto:base"
-        #   should_run: [True]
-        #   params: {}
-        #
+
+        - algorithm_id: "GENIE3"
+          image: "grnbeeline/arboreto:base"
+          should_run: [True]
+          params: {}
+
+        - algorithm_id: "GRNBOOST2"
+          image: "grnbeeline/arboreto:base"
+          should_run: [True]
+          params: {}
+
         # - algorithm_id: LASSONET
         #   image: "lassonet:base"
         #   should_run: [True]
@@ -58,15 +58,15 @@ input_settings:
         #   image: "lassonetdivmoy:base"
         #   should_run: [True]
         #   params: {}
-
-        - algorithm_id: GRANET
-          image: "granet:base"
-          should_run: [True]
-          params: {}
+        #
+        # - algorithm_id: GRANET
+        #   image: "granet:base"
+        #   should_run: [True]
+        #   params: {}
 
 # Output Settings: initialize base output folder names
 output_settings:
 
     # Base output directory
     output_dir: "outputs"
-    experiment_id: "testing_GRANET_on_STRING_hESC"
+    experiment_id: "testing_STRING_hESC"
