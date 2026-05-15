@@ -8,6 +8,7 @@ import argparse
 def importances_filling(importances, expr_df, gene_being_regressed):
     # Replaces your Helper.make_X_y_from_tsv call
     # expr_df is the full expression matrix (genes x cells)
+    print("Importances filling is running")
     genes = expr_df.index.tolist()
     n_genes = len(genes)
 
@@ -16,9 +17,7 @@ def importances_filling(importances, expr_df, gene_being_regressed):
     other_genes = [g for g in genes if g != target_gene]
 
     X_train = expr_df.loc[other_genes].T.to_numpy()
-    # print(f"The shape of the X_train is {X_train.shape}")
     y_train = expr_df.loc[target_gene].to_numpy()
-    # print(f"The shape of the y_train is {y_train.shape}")
 
     min_cells = int(0.2 * X_train.shape[0])
     expressed_mask = (X_train != 0).sum(axis=0) >= min_cells
@@ -37,7 +36,6 @@ def importances_filling(importances, expr_df, gene_being_regressed):
         # leave this gene's row as zeros (no predicted regulators)
         print(f"Skipping gene {target_gene} (index {gene_being_regressed}): {e}")
         return importances
-    # print(f"The shape of the prob is {prob.shape}")
 
 
     i = 0
@@ -53,6 +51,7 @@ def importances_filling(importances, expr_df, gene_being_regressed):
 
 def main():
     # Input/output paths are fixed to the Docker mounted volume
+    print("main is running")
     expr_path = "/usr/working_dir/ExpressionData.csv"
     output_path = "/usr/working_dir/outFile.txt"
 
