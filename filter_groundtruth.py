@@ -13,6 +13,8 @@ def select_top_genes(TF_file, gene_ordering_file, top_n, method):
     ordering = pd.read_csv(gene_ordering_file, index_col=0)
     tfs = pd.read_csv(TF_file, index_col=0)
 
+    tfs_genes = tfs.index.tolist()
+
     if method == 'rank':
         top_genes = ordering.index.tolist()
 
@@ -20,7 +22,6 @@ def select_top_genes(TF_file, gene_ordering_file, top_n, method):
         if 'Variance' not in ordering.columns:
             raise ValueError("Column 'Variance' not found in GeneOrdering.csv")
         top_genes = ordering.sort_values(by=["Variance"]).index.tolist()
-
     else:
         raise ValueError("method must be 'rank' or 'variance'")
 
@@ -34,7 +35,8 @@ def select_top_genes(TF_file, gene_ordering_file, top_n, method):
             i += 1
     top_genes = top_gene_n
 
-    top_genes.append(tfs_genes)
+    for g in tfs_genes:
+        top_genes.append(g)
 
     print(f'[GT filter] Selected {len(top_genes)} genes (top {top_n}, method={method})')
     return set(top_genes)
