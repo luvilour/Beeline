@@ -70,35 +70,35 @@ input_settings:
         #   should_run: [True]
         #   params: {}
 
-        # - algorithm_id: DEEPSEM
-        #   image: "deepsem:base"
-        #   should_run: [True]
-        #   params: {}
-        #
-        # - algorithm_id: GRANET
-        #   image: "granet:base"
-        #   should_run: [True]
-        #   params: {}
-        #
-        # - algorithm_id: SCGENERAI
-        #   image: "scgenerai:base"
-        #   should_run: [True]
-        #   params: {}
+        - algorithm_id: DEEPSEM
+          image: "deepsem:base"
+          should_run: [True]
+          params: {}
+
+        - algorithm_id: GRANET
+          image: "granet:base"
+          should_run: [True]
+          params: {}
+
+        - algorithm_id: SCGENERAI
+          image: "scgenerai:base"
+          should_run: [True]
+          params: {}
 
         # - algorithm_id: SCGENERAIMIXED
         #   image: "scgeneraimixed:base"
         #   should_run: [True]
         #   params: {}
 
-        # - algorithm_id: "GENIE3"
-        #   image: "grnbeeline/arboreto:base"
-        #   should_run: [True]
-        #   params: {}
-        #
-        # - algorithm_id: "GRNBOOST2"
-        #   image: "grnbeeline/arboreto:base"
-        #   should_run: [True]
-        #   params: {}
+        - algorithm_id: "GENIE3"
+          image: "grnbeeline/arboreto:base"
+          should_run: [True]
+          params: {}
+
+        - algorithm_id: "GRNBOOST2"
+          image: "grnbeeline/arboreto:base"
+          should_run: [True]
+          params: {}
 
         - algorithm_id: "LASSONETPROB"
           image: "lassonetprob:base"
