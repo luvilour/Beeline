@@ -99,7 +99,7 @@ LOCAL_IMAGES=(
     # sincerities:base
     # scsgl:base
     lassonet:base
-    lassonetdivmoy:base
+    lassonetprobmoy:base
     scgenerai:base
     # scgeneraimixed:base
     granet:base
@@ -300,25 +300,25 @@ if [[ "$BUILD" = true ]]; then
     # fi
     # popd
 
-    pushd $ROOTDIR/Algorithms/LassoNet/
-    docker build -t lassonet:base .
-    if ([ $? = 0 ] && [[ "$(docker images -q lassonet:base 2>/dev/null)" != "" ]]); then
-        echo "Docker container for LassoNet is built and tagged as lassonet:base"
-    elif [ "$(docker images -q lassonet:base 2>/dev/null)" != "" ]; then
-        echo "Docker container failed to build, but an existing image exists at lassonet:base"
+    pushd $ROOTDIR/Algorithms/lassonetprobProb/
+    docker build -t lassonetprob:base .
+    if ([ $? = 0 ] && [[ "$(docker images -q lassonetprob:base 2>/dev/null)" != "" ]]); then
+        echo "Docker container for lassonetprobProb is built and tagged as lassonet:base"
+    elif [ "$(docker images -q lassonetprob:base 2>/dev/null)" != "" ]; then
+        echo "Docker container failed to build, but an existing image exists at lassonetprob:base"
     else
-        echo "Oops! Unable to build Docker container for LassoNet"
+        echo "Oops! Unable to build Docker container for lassonetprobProb"
     fi
     popd
 
-    pushd $ROOTDIR/Algorithms/LassoNetDivMoy/
-    docker build -t lassonetdivmoy:base .
-    if ([ $? = 0 ] && [[ "$(docker images -q lassonetdivmoy:base 2>/dev/null)" != "" ]]); then
-        echo "Docker container for LassoNet is built and tagged as lassonetdivmoy:base"
-    elif [ "$(docker images -q lassonet:base 2>/dev/null)" != "" ]; then
-        echo "Docker container failed to build, but an existing image exists at lassonetdivmoy:base"
+    pushd $ROOTDIR/Algorithms/LassoNetProbNorm/
+    docker build -t lassonetprobnorm:base .
+    if ([ $? = 0 ] && [[ "$(docker images -q lassonetprobnorm:base 2>/dev/null)" != "" ]]); then
+        echo "Docker container for LassoNet is built and tagged as lassonetprobnorm:base"
+    elif [ "$(docker images -q lassonetprobnorm:base 2>/dev/null)" != "" ]; then
+        echo "Docker container failed to build, but an existing image exists at lassonetprobnorm:base"
     else
-        echo "Oops! Unable to build Docker container for LassoNetDivMoy"
+        echo "Oops! Unable to build Docker container for LassoNetProbNorm"
     fi
     popd
 

@@ -100,15 +100,15 @@ input_settings:
         #   should_run: [True]
         #   params: {}
 
-        # - algorithm_id: LASSONET
-        #   image: "lassonet:base"
-        #   should_run: [True]
-        #   params: {}
-        #
-        # - algorithm_id: LASSONETDIVMOY
-        #   image: "lassonetdivmoy:base"
-        #   should_run: [True]
-        #   params: {}
+        - algorithm_id: "LASSONETPROB"
+          image: "lassonetprob:base"
+          should_run: [True]
+          params: {}
+
+        - algorithm_id: "LASSONETPROBNORM"
+          image: "lassonetprobnorm:base"
+          should_run: [True]
+          params: {}
 
         - algorithm_id: "TABNET"
           image: "tabnet:base"
