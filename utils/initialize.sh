@@ -103,6 +103,7 @@ LOCAL_IMAGES=(
     scgenerai:base
     # scgeneraimixed:base
     granet:base
+    tabnet:base
 )
 
 if [[ "$REMOVE_GRNBEELINE" = true ]]; then
@@ -362,6 +363,17 @@ if [[ "$BUILD" = true ]]; then
         echo "Docker container failed to build, but an existing image exists at granet:base"
     else
         echo "Oops! Unable to build Docker container for GRANet"
+    fi
+    popd
+
+    pushd $ROOTDIR/Algorithms/TabNet/
+    docker build -t tabnet:base .
+    if ([ $? = 0 ] && [[ "$(docker images -q tabnet:base 2>/dev/null)" != "" ]]); then
+        echo "Docker container for TabNet is built and tagged as tabnet:base"
+    elif [ "$(docker images -q tabnet:base 2>/dev/null)" != "" ]; then
+        echo "Docker container failed to build, but an existing image exists at tabnet:base"
+    else
+        echo "Oops! Unable to build Docker container for TabNet"
     fi
     popd
 

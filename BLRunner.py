@@ -23,6 +23,7 @@ from BLRun.scGeneRAIRunner import scGeneRAIRunner
 from BLRun.scGeneRAIMixedRunner import scGeneRAIMixedRunner
 from BLRun.DeepSEMRunner import DeepSEMRunner
 from BLRun.GRANetRunner import GRANetRunner
+from BLRun.TabNetRunner import TabNetRunner
 
 RUNNERS = {
     'GENIE3':           GENIE3Runner,
@@ -45,6 +46,7 @@ RUNNERS = {
     'SCGENERAIMIXED':   scGeneRAIMixedRunner,
     'DEEPSEM':          DeepSEMRunner,
     'GRANET':           GRANetRunner,
+    'TABNET':           TabNetRunner,
 }
 
 
