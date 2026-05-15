@@ -3,7 +3,7 @@ import os
 import subprocess
 import pandas as pd
 
-class LassoNetProbRunner(Runner):
+class LassoNetRunner(Runner):
 
     def generateInputs(self):
         # Doc: reads from self.input_dir, writes processed files to self.working_dir
@@ -19,8 +19,8 @@ class LassoNetProbRunner(Runner):
         cmd = (
             f"docker run --rm"
             f" -v {self.working_dir}:/usr/working_dir"
-            f" lassonetprob:base"
-            f" python runLassoNetProb.py"
+            f" lassonet:base"
+            f" python runLassoNet.py"
         )
         subprocess.call(cmd, shell=True)
 

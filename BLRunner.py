@@ -17,6 +17,7 @@ from BLRun.scsglRunner import SCSGLRunner
 from BLRun.sinceritiesRunner import SINCERITIESRunner
 from BLRun.singeRunner import SINGERunner
 from BLRun.pearsonRunner import PearsonRunner
+from BLRun.LassoNetRunner import LassoNetRunner
 from BLRun.LassoNetProbRunner import LassoNetProbRunner
 from BLRun.LassoNetProbNormRunner import LassoNetProbNormRunner
 from BLRun.scGeneRAIRunner import scGeneRAIRunner
@@ -40,6 +41,7 @@ RUNNERS = {
     'SCSGL':            SCSGLRunner,
     'SINCERITIES':      SINCERITIESRunner,
     'SINGE':            SINGERunner,
+    'LASSONET':         LassoNetRunner,
     'LASSONETPROB':     LassoNetProbRunner,
     'LASSONETPROBNORM': LassoNetProbNormRunner,
     'SCGENERAI':        scGeneRAIRunner,
