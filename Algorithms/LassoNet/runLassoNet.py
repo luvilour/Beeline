@@ -39,7 +39,7 @@ def importances_filling(importances, expr_df, gene_being_regressed):
 
     i = 0
     for cnt in range(importances.shape[1]):
-        if cnt == gene_being_regressed:
+        if cnt == gene_being_regressed - 1:
             importances[gene_being_regressed-1][cnt] = -200
         else:
             importances[gene_being_regressed-1][cnt] = model.feature_importances_[i]
