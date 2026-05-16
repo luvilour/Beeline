@@ -99,6 +99,7 @@ LOCAL_IMAGES=(
     # sincerities:base
     # scsgl:base
     lassonet:base
+    lassonetprob:base
     lassonetprobmoy:base
     scgenerai:base
     # scgeneraimixed:base
@@ -300,14 +301,25 @@ if [[ "$BUILD" = true ]]; then
     # fi
     # popd
 
-    pushd $ROOTDIR/Algorithms/lassonetprobProb/
+    pushd $ROOTDIR/Algorithms/LassoNet/
+    docker build -t lassonet:base .
+    if ([ $? = 0 ] && [[ "$(docker images -q lassonet:base 2>/dev/null)" != "" ]]); then
+        echo "Docker container for LassoNet is built and tagged as lassonet:base"
+    elif [ "$(docker images -q lassonet:base 2>/dev/null)" != "" ]; then
+        echo "Docker container failed to build, but an existing image exists at lassonet:base"
+    else
+        echo "Oops! Unable to build Docker container for LassoNet"
+    fi
+    popd
+
+    pushd $ROOTDIR/Algorithms/LassoNetProb/
     docker build -t lassonetprob:base .
     if ([ $? = 0 ] && [[ "$(docker images -q lassonetprob:base 2>/dev/null)" != "" ]]); then
-        echo "Docker container for lassonetprobProb is built and tagged as lassonet:base"
+        echo "Docker container for LassoNetProb is built and tagged as lassonetprob:base"
     elif [ "$(docker images -q lassonetprob:base 2>/dev/null)" != "" ]; then
         echo "Docker container failed to build, but an existing image exists at lassonetprob:base"
     else
-        echo "Oops! Unable to build Docker container for lassonetprobProb"
+        echo "Oops! Unable to build Docker container for LassoNetProb"
     fi
     popd
 
