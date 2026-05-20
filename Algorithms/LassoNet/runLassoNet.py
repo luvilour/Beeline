@@ -36,14 +36,12 @@ def importances_filling(importances, expr_df, gene_being_regressed):
         print(f"Skipping gene {target_gene} (index {gene_being_regressed}): {e}")
         return importances
 
+    importances_map = {g: model.feature_importances_[i].item() for i, g in enumerate(expressed_genes)}
 
-    i = 0
+    importances[gene_being_regressed-1][gene_being_regressed-1] = -200
     for cnt in range(importances.shape[1]):
-        if cnt == gene_being_regressed - 1:
-            importances[gene_being_regressed-1][cnt] = -200
-        else:
-            importances[gene_being_regressed-1][cnt] = model.feature_importances_[i]
-            i += 1
+        g = genes[cnt]
+        importances[gene_being_regressed-1][cnt] = importances_map.get(g, 0.0)
 
     return importances
 
