@@ -14,7 +14,7 @@ input_settings:
           exprData: "ExpressionData.csv"
           groundTruthNetwork: "STRING-network_filtered.csv"
           runs:
-            - run_id: "hESC_filtered"
+            - run_id: "human/hESC_filtered_tfs"
 
 
     algorithms:
@@ -29,10 +29,10 @@ input_settings:
           should_run: [True]
           params: {}
 
-        - algorithm_id: SCGENERAI
-          image: "scgenerai:base"
-          should_run: [True]
-          params: {}
+        # - algorithm_id: SCGENERAI
+        #   image: "scgenerai:base"
+        #   should_run: [True]
+        #   params: {}
 
         # - algorithm_id: SCGENERAIMIXED
         #   image: "scgeneraimixed:base"
@@ -64,14 +64,14 @@ input_settings:
         #   should_run: [True]
         #   params: {}
 
-        - algorithm_id: TABNET
-          image: "tabnet:base"
-          should_run: [True]
-          params: {}
+        # - algorithm_id: TABNET
+        #   image: "tabnet:base"
+        #   should_run: [True]
+        #   params: {}
 
 # Output Settings: initialize base output folder names
 output_settings:
 
     # Base output directory
     output_dir: "outputsKeep"
-    experiment_id: "STRING-tfs+500"
+    experiment_id: "STRING-tfs_500"
