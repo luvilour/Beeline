@@ -70,36 +70,36 @@ input_settings:
         # #   should_run: [True]
         # #   params: {}
 
-        - algorithm_id: DEEPSEM
-          image: "deepsem:base"
-          should_run: [True]
-          params: {}
-
-        # - algorithm_id: GRANET
-        #   image: "granet:base"
+        # - algorithm_id: DEEPSEM
+        #   image: "deepsem:base"
         #   should_run: [True]
         #   params: {}
-
-        - algorithm_id: SCGENERAI
-          image: "scgenerai:base"
-          should_run: [True]
-          params: {}
-
-        # - algorithm_id: SCGENERAIMIXED
-        #   image: "scgeneraimixed:base"
+        #
+        # # - algorithm_id: GRANET
+        # #   image: "granet:base"
+        # #   should_run: [True]
+        # #   params: {}
+        #
+        # - algorithm_id: SCGENERAI
+        #   image: "scgenerai:base"
         #   should_run: [True]
         #   params: {}
-
-        - algorithm_id: "GENIE3"
-          image: "grnbeeline/arboreto:base"
-          should_run: [True]
-          params: {}
-
-        - algorithm_id: "GRNBOOST2"
-          image: "grnbeeline/arboreto:base"
-          should_run: [True]
-          params: {}
-
+        #
+        # # - algorithm_id: SCGENERAIMIXED
+        # #   image: "scgeneraimixed:base"
+        # #   should_run: [True]
+        # #   params: {}
+        #
+        # - algorithm_id: "GENIE3"
+        #   image: "grnbeeline/arboreto:base"
+        #   should_run: [True]
+        #   params: {}
+        #
+        # - algorithm_id: "GRNBOOST2"
+        #   image: "grnbeeline/arboreto:base"
+        #   should_run: [True]
+        #   params: {}
+        #
         - algorithm_id: "LASSONET"
           image: "lassonet:base"
           should_run: [True]
@@ -114,15 +114,15 @@ input_settings:
           image: "lassonetprobnorm:base"
           should_run: [True]
           params: {}
-
-        - algorithm_id: "TABNET"
-          image: "tabnet:base"
-          should_run: [True]
-          params: {}
+        #
+        # - algorithm_id: "TABNET"
+        #   image: "tabnet:base"
+        #   should_run: [True]
+        #   params: {}
 
 # Output Settings: initialize base output folder names
 output_settings:
 
     # Base output directory
     output_dir: "outputsKeep"
-    experiment_id: "AllAlgorithmAllBeelineDatasetsTen"
+    experiment_id: "AllAlgorithmAllBeelineDatasetsTenCeci"

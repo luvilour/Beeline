@@ -1,0 +1,22 @@
+Bootstrap: docker
+From: python:3.9-slim
+
+%post
+    apt-get update && apt-get install -y \
+        build-essential \
+        libhdf5-dev \
+        libgl1 \
+        time
+    pip install numpy pandas torch scanpy anndata scikit-learn
+    mkdir -p /usr/working_dir
+
+%files
+    src /DeepSEM/src
+    runDeepSEM.py /DeepSEM/runDeepSEM.py
+
+%environment
+    export PYTHONPATH=/DeepSEM:$PYTHONPATH
+
+%runscript
+    cd /DeepSEM
+    exec python /DeepSEM/runDeepSEM.py "$@"

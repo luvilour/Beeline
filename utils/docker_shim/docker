@@ -1,0 +1,106 @@
+#!/bin/bash
+# =============================================================================
+# docker (shim)
+# Intercepts "docker run" calls from Beeline Runners and translates them to
+# "apptainer exec" calls, so Runner files need no modification.
+#
+# Install: place this file somewhere on PATH *before* real docker, e.g.:
+#   mkdir -p ~/bin
+#   cp docker ~/bin/docker
+#   chmod +x ~/bin/docker
+#   export PATH="$HOME/bin:$PATH"   # add this to your .bashrc or SLURM script
+#
+# The BEELINE_SIF_DIR environment variable must point to the directory
+# containing your .sif images (set by the SLURM script).
+# =============================================================================
+
+# Pass through any docker command that isn't "docker run" unchanged
+if [[ "$1" != "run" ]]; then
+    echo "[docker shim] Unsupported docker command '$1' — ignoring." >&2
+    exit 0
+fi
+
+shift  # consume the "run" argument
+
+# --- Parse docker run arguments ----------------------------------------------
+BINDS=()
+ENV_VARS=()
+IMAGE=""
+CMD_ARGS=()
+PARSING_DOCKER_FLAGS=true
+
+while [[ "$#" -gt 0 ]]; do
+    if $PARSING_DOCKER_FLAGS; then
+        case "$1" in
+            --rm)
+                shift
+                ;;
+            -v | --volume)
+                BINDS+=("$2")
+                shift 2
+                ;;
+            -v*)
+                BINDS+=("${1#-v}")
+                shift
+                ;;
+            --volume=*)
+                BINDS+=("${1#--volume=}")
+                shift
+                ;;
+            -e | --env)
+                ENV_VARS+=("$2")
+                shift 2
+                ;;
+            -*)
+                echo "[docker shim] Skipping unhandled docker flag: $1" >&2
+                shift
+                ;;
+            *)
+                IMAGE="$1"
+                shift
+                PARSING_DOCKER_FLAGS=false
+                ;;
+        esac
+    else
+        CMD_ARGS+=("$1")
+        shift
+    fi
+done
+
+if [ -z "$IMAGE" ]; then
+    echo "[docker shim] ERROR: No image name found in docker run call." >&2
+    exit 1
+fi
+
+# --- Translate image name to .sif path ---------------------------------------
+SIF_DIR="${BEELINE_SIF_DIR:-$(dirname "$(readlink -f "$0")")/../utils/sif_images}"
+
+image_basename="${IMAGE##*/}"
+sif_name="${image_basename/:/_}.sif"
+SIF_PATH="$SIF_DIR/$sif_name"
+
+if [ ! -f "$SIF_PATH" ]; then
+    echo "[docker shim] ERROR: .sif image not found: $SIF_PATH" >&2
+    echo "[docker shim] (translated from Docker image: $IMAGE)" >&2
+    exit 1
+fi
+
+# --- Build apptainer exec command --------------------------------------------
+APPTAINER_CMD="apptainer exec"
+
+for bind in "${BINDS[@]}"; do
+    APPTAINER_CMD+=" --bind $bind"
+done
+
+for env_var in "${ENV_VARS[@]}"; do
+    APPTAINER_CMD+=" --env $env_var"
+done
+
+APPTAINER_CMD+=" $SIF_PATH"
+
+if [ ${#CMD_ARGS[@]} -gt 0 ]; then
+    APPTAINER_CMD+=" ${CMD_ARGS[*]}"
+fi
+
+echo "[docker shim] $APPTAINER_CMD" >&2
+exec $APPTAINER_CMD

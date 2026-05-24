@@ -1,0 +1,13 @@
+Bootstrap: docker
+From: python:3.9-slim
+
+%post
+    apt-get update && apt-get install -y time
+    pip install numpy pytorch-tabnet torch pandas scikit-learn
+    mkdir -p /data
+
+%files
+    runTabNet.py /runTabNet.py
+
+%runscript
+    exec python /runTabNet.py "$@"
