@@ -30,30 +30,29 @@ BUILD=false
 HELP=false
 REMOVE_LOCAL=false
 REMOVE_GRNBEELINE=false
-VERBOSE_VALUE="--quiet"
+VERBOSE_VALUE=""
 
 # --- Speed up Apptainer with in-memory filesystems (if available) ------------
-if [ -n "$XDG_RUNTIME_DIR" ]; then
-    export APPTAINER_TMPDIR=$XDG_RUNTIME_DIR
-    export APPTAINER_CACHEDIR=$XDG_RUNTIME_DIR
-fi
+export APPTAINER_TMPDIR=$HOME/apptainer_tmp
+export APPTAINER_CACHEDIR=$HOME/apptainer_cache
+mkdir -p $APPTAINER_TMPDIR $APPTAINER_CACHEDIR
 
 # --- Image lists -------------------------------------------------------------
 
 # Images pulled from DockerHub (grnbeeline organisation)
 DOCKERHUB_IMAGES=(
     grnbeeline/arboreto:base
-    grnbeeline/grisli:base
-    grnbeeline/grnvbem:base
-    grnbeeline/leap:base
-    grnbeeline/pidc:base
-    grnbeeline/ppcor:base
-    grnbeeline/scinge:base
-    grnbeeline/scns:base
-    grnbeeline/scode:base
-    grnbeeline/scribe:base
-    grnbeeline/sincerities:base
-    grnbeeline/singe:0.4.1
+    # grnbeeline/grisli:base
+    # grnbeeline/grnvbem:base
+    # grnbeeline/leap:base
+    # grnbeeline/pidc:base
+    # grnbeeline/ppcor:base
+    # grnbeeline/scinge:base
+    # grnbeeline/scns:base
+    # grnbeeline/scode:base
+    # grnbeeline/scribe:base
+    # grnbeeline/sincerities:base
+    # grnbeeline/singe:0.4.1
 )
 
 # Custom algorithms: maps .def filename (no extension) -> output .sif name
@@ -62,7 +61,7 @@ DOCKERHUB_IMAGES=(
 declare -A LOCAL_DEF_MAP=(
     [lassonet]="lassonet_base"
     [lassonetprob]="lassonetprob_base"
-    [lassonetprobmoy]="lassonetprobmoy_base"
+    [lassonetprobnorm]="lassonetprobnorm_base"
     [scgenerai]="scgenerai_base"
     [tabnet]="tabnet_base"
     [deepsem]="deepsem_base"
@@ -73,7 +72,7 @@ declare -A LOCAL_DEF_MAP=(
 declare -A DEF_CONTEXT_MAP=(
     [lassonet]="LassoNet"
     [lassonetprob]="LassoNetProb"
-    [lassonetprobmoy]="LassoNetProbNorm"
+    [lassonetprobnorm]="LassoNetProbNorm"
     [scgenerai]="scGeneRAI"
     [tabnet]="TabNet"
     [deepsem]="DeepSEM"
@@ -84,8 +83,8 @@ declare -A DEF_CONTEXT_MAP=(
 # Convert "org/name:tag" or "name:tag" to a safe .sif filename
 image_to_sif() {
     local image="$1"
-    local base="${image##*/}"          # strip org prefix
-    echo "$SIF_DIR/${base/:/_}.sif"   # replace : with _
+    local base="${image##*/}"       # strip org prefix
+    echo "$SIF_DIR/${base/:/_}.sif" # replace : with _
 }
 
 show_help() {
@@ -107,10 +106,10 @@ show_help() {
 # --- Argument parsing --------------------------------------------------------
 while [[ "$#" -gt 0 ]]; do
     case "$1" in
-    -b | --build)               BUILD=true ;;
-    -v | --verbose)             VERBOSE_VALUE="" ;;
-    -h | --help)                HELP=true ;;
-    --remove-local-images)      REMOVE_LOCAL=true ;;
+    -b | --build) BUILD=true ;;
+    -v | --verbose) VERBOSE_VALUE="" ;;
+    -h | --help) HELP=true ;;
+    --remove-local-images) REMOVE_LOCAL=true ;;
     --remove-grnbeeline-images) REMOVE_GRNBEELINE=true ;;
     *)
         echo "Unknown option: $1" >&2
@@ -182,9 +181,9 @@ if [[ "$BUILD" = true ]]; then
         fi
 
         # Build from the algorithm directory so %files paths resolve correctly
-        pushd "$context_dir" > /dev/null
+        pushd "$context_dir" >/dev/null
         apptainer build $VERBOSE_VALUE "$sif_path" "$def_file"
-        popd > /dev/null
+        popd >/dev/null
 
         if [ -f "$sif_path" ]; then
             echo "SUCCESS: $sif_path"

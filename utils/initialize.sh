@@ -100,7 +100,7 @@ LOCAL_IMAGES=(
     # scsgl:base
     lassonet:base
     lassonetprob:base
-    lassonetprobmoy:base
+    lassonetprobnorm:base
     scgenerai:base
     # scgeneraimixed:base
     granet:base

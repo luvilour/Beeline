@@ -7,7 +7,7 @@ From: python:3.9-slim
     mkdir -p /data
 
 %files
-    runLassoNetProbMoy.py /runLassoNetProbMoy.py
+    runLassoNetProbNorm.py /runLassoNetProbNorm.py
 
 %runscript
-    exec python /runLassoNetProbMoy.py "$@"
+    exec python /runLassoNetProbNorm.py "$@"
