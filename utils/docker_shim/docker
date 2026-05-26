@@ -20,7 +20,7 @@ if [[ "$1" != "run" ]]; then
     exit 0
 fi
 
-shift  # consume the "run" argument
+shift # consume the "run" argument
 
 # --- Parse docker run arguments ----------------------------------------------
 BINDS=()
@@ -32,34 +32,34 @@ PARSING_DOCKER_FLAGS=true
 while [[ "$#" -gt 0 ]]; do
     if $PARSING_DOCKER_FLAGS; then
         case "$1" in
-            --rm)
-                shift
-                ;;
-            -v | --volume)
-                BINDS+=("$2")
-                shift 2
-                ;;
-            -v*)
-                BINDS+=("${1#-v}")
-                shift
-                ;;
-            --volume=*)
-                BINDS+=("${1#--volume=}")
-                shift
-                ;;
-            -e | --env)
-                ENV_VARS+=("$2")
-                shift 2
-                ;;
-            -*)
-                echo "[docker shim] Skipping unhandled docker flag: $1" >&2
-                shift
-                ;;
-            *)
-                IMAGE="$1"
-                shift
-                PARSING_DOCKER_FLAGS=false
-                ;;
+        --rm)
+            shift
+            ;;
+        -v | --volume)
+            BINDS+=("$2")
+            shift 2
+            ;;
+        -v*)
+            BINDS+=("${1#-v}")
+            shift
+            ;;
+        --volume=*)
+            BINDS+=("${1#--volume=}")
+            shift
+            ;;
+        -e | --env)
+            ENV_VARS+=("$2")
+            shift 2
+            ;;
+        -*)
+            echo "[docker shim] Skipping unhandled docker flag: $1" >&2
+            shift
+            ;;
+        *)
+            IMAGE="$1"
+            shift
+            PARSING_DOCKER_FLAGS=false
+            ;;
         esac
     else
         CMD_ARGS+=("$1")
@@ -86,7 +86,7 @@ if [ ! -f "$SIF_PATH" ]; then
 fi
 
 # --- Build apptainer exec command --------------------------------------------
-APPTAINER_CMD="apptainer exec"
+APPTAINER_CMD="apptainer exec --pwd /"
 
 for bind in "${BINDS[@]}"; do
     APPTAINER_CMD+=" --bind $bind"
@@ -103,4 +103,4 @@ if [ ${#CMD_ARGS[@]} -gt 0 ]; then
 fi
 
 echo "[docker shim] $APPTAINER_CMD" >&2
-exec $APPTAINER_CMD
+exec /usr/bin/$APPTAINER_CMD

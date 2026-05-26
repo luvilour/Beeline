@@ -1,0 +1,13 @@
+Bootstrap: docker
+From: python:3.9-slim
+
+%post
+    apt-get update && apt-get install -y time
+    pip install numpy lassonet torch pandas
+    mkdir -p /data
+
+%files
+    runLassoNetProbMoy.py /runLassoNetProbMoy.py
+
+%runscript
+    exec python /runLassoNetProbMoy.py "$@"
