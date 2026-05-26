@@ -1,6 +1,9 @@
 # Common env outputs
 __pycache__
 .vscode
+less
+logs
+vim
 
 # BEELINE specific files
 configs/
