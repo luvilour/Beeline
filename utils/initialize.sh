@@ -14,17 +14,17 @@ VERBOSE_VALUE="-q "
 # Referenced in both the --remove-grnbeeline-images block and the pull block.
 DOCKERHUB_IMAGES=(
     grnbeeline/arboreto:base
-    grnbeeline/grisli:base
-    grnbeeline/grnvbem:base
-    grnbeeline/leap:base
-    grnbeeline/pidc:base
-    grnbeeline/ppcor:base
-    grnbeeline/scinge:base
-    grnbeeline/scns:base
-    grnbeeline/scode:base
-    grnbeeline/scribe:base
-    grnbeeline/sincerities:base
-    grnbeeline/singe:0.4.1
+    # grnbeeline/grisli:base
+    # grnbeeline/grnvbem:base
+    # grnbeeline/leap:base
+    # grnbeeline/pidc:base
+    # grnbeeline/ppcor:base
+    # grnbeeline/scinge:base
+    # grnbeeline/scns:base
+    # grnbeeline/scode:base
+    # grnbeeline/scribe:base
+    # grnbeeline/sincerities:base
+    # grnbeeline/singe:0.4.1
 )
 
 show_help() {

@@ -20,6 +20,12 @@ from BLRun.pearsonRunner import PearsonRunner
 from BLRun.LassoNetRunner import LassoNetRunner
 from BLRun.LassoNetProbRunner import LassoNetProbRunner
 from BLRun.LassoNetProbNormRunner import LassoNetProbNormRunner
+from BLRun.LassoNetProbNorm5Runner import LassoNetProbNorm5Runner
+from BLRun.LassoNetProbNorm10Runner import LassoNetProbNorm10Runner
+from BLRun.LassoNetProbNorm15Runner import LassoNetProbNorm15Runner
+from BLRun.LassoNetProbNorm25Runner import LassoNetProbNorm25Runner
+from BLRun.LassoNetProbNorm30Runner import LassoNetProbNorm30Runner
+from BLRun.LassoNetProbNorm35Runner import LassoNetProbNorm35Runner
 from BLRun.scGeneRAIRunner import scGeneRAIRunner
 from BLRun.scGeneRAIMixedRunner import scGeneRAIMixedRunner
 from BLRun.DeepSEMRunner import DeepSEMRunner
@@ -27,28 +33,34 @@ from BLRun.GRANetRunner import GRANetRunner
 from BLRun.TabNetRunner import TabNetRunner
 
 RUNNERS = {
-    'GENIE3':           GENIE3Runner,
-    'GRNBOOST2':        GRNBoost2Runner,
-    'GRISLI':           GRISLIRunner,
-    'GRNVBEM':          GRNVBEMRunner,
-    'JUMP3':            JUMP3Runner,
-    'LEAP':             LEAPRunner,
-    'PEARSON':          PearsonRunner,
-    'PIDC':             PIDCRunner,
-    'PPCOR':            PPCORRunner,
-    'SCODE':            SCODERunner,
-    'SCRIBE':           SCRIBERunner,
-    'SCSGL':            SCSGLRunner,
-    'SINCERITIES':      SINCERITIESRunner,
-    'SINGE':            SINGERunner,
-    'LASSONET':         LassoNetRunner,
-    'LASSONETPROB':     LassoNetProbRunner,
-    'LASSONETPROBNORM': LassoNetProbNormRunner,
-    'SCGENERAI':        scGeneRAIRunner,
-    'SCGENERAIMIXED':   scGeneRAIMixedRunner,
-    'DEEPSEM':          DeepSEMRunner,
-    'GRANET':           GRANetRunner,
-    'TABNET':           TabNetRunner,
+    'GENIE3':               GENIE3Runner,
+    'GRNBOOST2':            GRNBoost2Runner,
+    'GRISLI':               GRISLIRunner,
+    'GRNVBEM':              GRNVBEMRunner,
+    'JUMP3':                JUMP3Runner,
+    'LEAP':                 LEAPRunner,
+    'PEARSON':              PearsonRunner,
+    'PIDC':                 PIDCRunner,
+    'PPCOR':                PPCORRunner,
+    'SCODE':                SCODERunner,
+    'SCRIBE':               SCRIBERunner,
+    'SCSGL':                SCSGLRunner,
+    'SINCERITIES':          SINCERITIESRunner,
+    'SINGE':                SINGERunner,
+    'LASSONET':             LassoNetRunner,
+    'LASSONETPROB':         LassoNetProbRunner,
+    'LASSONETPROBNORM':     LassoNetProbNormRunner,
+    'LASSONETPROBNORM5':    LassoNetProbNorm5Runner,
+    'LASSONETPROBNORM10':   LassoNetProbNorm10Runner,
+    'LASSONETPROBNORM15':   LassoNetProbNorm15Runner,
+    'LASSONETPROBNORM25':   LassoNetProbNorm25Runner,
+    'LASSONETPROBNORM30':   LassoNetProbNorm30Runner,
+    'LASSONETPROBNORM35':   LassoNetProbNorm35Runner,
+    'SCGENERAI':            scGeneRAIRunner,
+    'SCGENERAIMIXED':       scGeneRAIMixedRunner,
+    'DEEPSEM':              DeepSEMRunner,
+    'GRANET':               GRANetRunner,
+    'TABNET':               TabNetRunner,
 }
 
 

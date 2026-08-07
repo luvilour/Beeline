@@ -18,7 +18,7 @@ class DeepSEMRunner(Runner):
             f"docker run --rm"
             f" -v {self.working_dir}:/usr/working_dir"
             f" deepsem:base"
-            f" python runDeepSEM.py"
+            f" python /DeepSEM/runDeepSEM.py"
         )
         subprocess.call(cmd, shell=True)
 

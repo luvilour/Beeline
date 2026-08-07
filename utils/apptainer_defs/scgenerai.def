@@ -1,0 +1,15 @@
+Bootstrap: docker
+From: python:3.9-slim
+
+%post
+    apt-get update && apt-get install -y time
+    pip install numpy torch pandas tqdm
+    mkdir -p /data
+
+%files
+    runscGeneRAI.py /runscGeneRAI.py
+    scGeneRAI.py /scGeneRAI.py
+    dataloading_simple.py /dataloading_simple.py
+
+%runscript
+    exec python /runscGeneRAI.py "$@"

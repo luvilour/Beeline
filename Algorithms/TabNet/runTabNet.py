@@ -24,13 +24,19 @@ def importances_filling(importances, expr_df, gene_being_regressed):
     min_cells = int(0.2 * X_train.shape[0])
     expressed_mask = (X_train != 0).sum(axis=0) >= min_cells
     X_train = X_train[:, expressed_mask]
+    X_test = X_test[:, expressed_mask]
     expressed_genes = [g for g, keep in zip(other_genes, expressed_mask) if keep]
 
     scaler = StandardScaler()
     X_train = scaler.fit_transform(X_train)
     X_train = np.nan_to_num(X_train, nan=0.0, posinf=0.0)
-    X_test = scaler.transform(X_test)
-    X_test = np.nan_to_num(X_test, nan=0.0, posinf=0.0)
+
+    try:
+        X_test = scaler.transform(X_test)
+        X_test = np.nan_to_num(X_test, nan=0.0, posinf=0.0)
+    except (AssertionError, RuntimeError, ValueError) as e:
+        print(f"Skipping gene {target_gene} (index {gene_being_regressed}): {e}")
+        return importances
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model = TabNetRegressor(
@@ -75,6 +81,9 @@ def main():
     output_path = "/usr/working_dir/outFile.txt"
 
     expr_df = pd.read_csv(expr_path, index_col=0)
+    if expr_df.index.duplicated().any():
+        print(f"Warning: {expr_df.index.duplicated().sum()} duplicate gene names found, keeping first occurrence.")
+        expr_df = expr_df[~expr_df.index.duplicated(keep='first')]
 
     n_genes = expr_df.shape[0]
     genes = expr_df.index.tolist()

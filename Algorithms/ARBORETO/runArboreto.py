@@ -26,7 +26,7 @@ def main(args):
     opts, args = parseArgs(args)
     inDF = pd.read_csv(opts.inFile, sep = '\t', index_col = 0, header = 0)
 
-    client = Client(processes = False)    
+    client = Client(processes=False, local_directory="/usr/working_dir")
 
     if opts.algo == 'GENIE3':
         network = genie3(inDF.to_numpy(), client_or_address = client, gene_names = inDF.columns)
