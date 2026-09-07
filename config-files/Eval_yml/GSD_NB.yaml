@@ -65,48 +65,18 @@ input_settings:
 
     algorithms:
 
-        # # - algorithm_id: "GRNVBEM"
-        # #   image: "grnbeeline/grnvbem:base"
-        # #   should_run: [True]
-        # #   params: {}
-
-        - algorithm_id: DEEPSEM
-          image: "deepsem:base"
+        - algorithm_id: "LASSONETPROBNORM5"
+          image: "lassonetprobnorm:base"
           should_run: [True]
           params: {}
 
-        # - algorithm_id: GRANET
-        #   image: "granet:base"
-        #   should_run: [True]
-        #   params: {}
-
-        - algorithm_id: SCGENERAI
-          image: "scgenerai:base"
+        - algorithm_id: "LASSONETPROBNORM10"
+          image: "lassonetprobnorm:base"
           should_run: [True]
           params: {}
 
-        # - algorithm_id: SCGENERAIMIXED
-        #   image: "scgeneraimixed:base"
-        #   should_run: [True]
-        #   params: {}
-
-        - algorithm_id: "GENIE3"
-          image: "grnbeeline/arboreto:base"
-          should_run: [True]
-          params: {}
-
-        - algorithm_id: "GRNBOOST2"
-          image: "grnbeeline/arboreto:base"
-          should_run: [True]
-          params: {}
-
-        - algorithm_id: "LASSONET"
-          image: "lassonet:base"
-          should_run: [True]
-          params: {}
-
-        - algorithm_id: "LASSONETPROB"
-          image: "lassonetprob:base"
+        - algorithm_id: "LASSONETPROBNORM15"
+          image: "lassonetprobnorm:base"
           should_run: [True]
           params: {}
 
@@ -115,8 +85,13 @@ input_settings:
           should_run: [True]
           params: {}
 
-        - algorithm_id: "TABNET"
-          image: "tabnet:base"
+        - algorithm_id: "LASSONETPROBNORM25"
+          image: "lassonetprobnorm:base"
+          should_run: [True]
+          params: {}
+
+        - algorithm_id: "LASSONETPROBNORM30"
+          image: "lassonetprobnorm:base"
           should_run: [True]
           params: {}
 
@@ -125,4 +100,4 @@ output_settings:
 
     # Base output directory
     output_dir: "outputsKeep"
-    experiment_id: "AllAlgorithmAllBeelineDatasetsTen"
+    experiment_id: "Compare_n_models"

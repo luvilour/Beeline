@@ -5,7 +5,7 @@ from sklearn.preprocessing import StandardScaler
 import torch
 import argparse
 
-def importances_filling(importances, expr_df, gene_being_regressed):
+def importances_filling(importances, expr_df, gene_being_regressed, n_models):
     # Replaces your Helper.make_X_y_from_tsv call
     # expr_df is the full expression matrix (genes x cells)
     genes = expr_df.index.tolist()
@@ -31,7 +31,7 @@ def importances_filling(importances, expr_df, gene_being_regressed):
 
     model = LassoNetRegressor(hidden_dims=(5, 5))
     try:
-        oracle, order, wrong, paths, prob = model.stability_selection(X_train, y_train)
+        oracle, order, wrong, paths, prob = model.stability_selection(X_train, y_train, n_models=n_models)
     except (AssertionError, RuntimeError, ValueError) as e:
         # A specific bootstrap subsample caused numerical explosion —
         # leave this gene's row as zeros (no predicted regulators)
@@ -62,6 +62,12 @@ def importances_filling(importances, expr_df, gene_being_regressed):
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--n_models', type=int, default=20)
+    args = parser.parse_args()
+    n_models = args.n_models
+    print(f"n_models = {n_models}")
+
     # Input/output paths are fixed to the Docker mounted volume
     expr_path = "/usr/working_dir/ExpressionData.csv"
     output_path = "/usr/working_dir/outFile.txt"
@@ -75,7 +81,7 @@ def main():
     importances = np.zeros((n_genes, n_genes))
 
     for i in range(1, n_genes + 1):
-        importances = importances_filling(importances, expr_df, i)
+        importances = importances_filling(importances, expr_df, i, n_models)
 
     # print(f"The importance matrix is the following: {importances}")
 

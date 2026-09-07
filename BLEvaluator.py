@@ -103,7 +103,7 @@ def main():
         BLTime()(evaluation_data)
 
     if args.epr:
-        EarlyPrecision()(evaluation_data)
+        EarlyPrecision(tf_edges=True)(evaluation_data)
 
     if args.sepr:
         SignedEarlyPrecision()(evaluation_data)

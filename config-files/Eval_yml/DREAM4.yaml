@@ -1,0 +1,105 @@
+# Input Settings: initialize base input folder names,
+# dataset collections, and algorithms to run over
+input_settings:
+
+    # Base input directory
+    input_dir : "inputs"
+
+    # Each dataset entry represents a condition group. Its subdirectories
+    # are individual runs (variants) listed under 'runs'.
+    datasets:
+
+        - dataset_id: "Curated/DREAM4/data1"
+          should_run: [True]
+          exprData: "ExpressionData.csv"
+          groundTruthNetwork: "DREAM4_GoldStandard_InSilico_Size100_multifactorial_1.csv"
+          runs:
+            - run_id: "data1"
+
+        - dataset_id: "Curated/DREAM4/data2"
+          should_run: [True]
+          exprData: "ExpressionData.csv"
+          groundTruthNetwork: "DREAM4_GoldStandard_InSilico_Size100_multifactorial_2.csv"
+          runs:
+            - run_id: "data2"
+
+        - dataset_id: "Curated/DREAM4/data3"
+          should_run: [True]
+          exprData: "ExpressionData.csv"
+          groundTruthNetwork: "DREAM4_GoldStandard_InSilico_Size100_multifactorial_3.csv"
+          runs:
+            - run_id: "data3"
+
+        - dataset_id: "Curated/DREAM4/data4"
+          should_run: [True]
+          exprData: "ExpressionData.csv"
+          groundTruthNetwork: "DREAM4_GoldStandard_InSilico_Size100_multifactorial_4.csv"
+          runs:
+            - run_id: "data4"
+
+        - dataset_id: "Curated/DREAM4/data5"
+          should_run: [True]
+          exprData: "ExpressionData.csv"
+          groundTruthNetwork: "DREAM4_GoldStandard_InSilico_Size100_multifactorial_5.csv"
+          runs:
+            - run_id: "data5"
+
+
+    algorithms:
+
+        # - algorithm_id: "GRNVBEM"
+        #   image: "grnbeeline/grnvbem:base"
+        #   should_run: [True]
+        #   params: {}
+
+        - algorithm_id: DEEPSEM
+          image: "deepsem:base"
+          should_run: [True]
+          params: {}
+
+        - algorithm_id: SCGENERAI
+          image: "scgenerai:base"
+          should_run: [True]
+          params: {}
+
+        # # - algorithm_id: SCGENERAIMIXED
+        # #   image: "scgeneraimixed:base"
+        # #   should_run: [True]
+        # #   params: {}
+
+        - algorithm_id: "GENIE3"
+          image: "grnbeeline/arboreto:base"
+          should_run: [True]
+          params: {}
+
+        - algorithm_id: "GRNBOOST2"
+          image: "grnbeeline/arboreto:base"
+          should_run: [True]
+          params: {}
+
+        - algorithm_id: "LASSONET"
+          image: "lassonet:base"
+          should_run: [True]
+          params: {}
+
+        - algorithm_id: LASSONETPROB
+          image: "lassonetprob:base"
+          should_run: [True]
+          params: {}
+
+        - algorithm_id: LASSONETPROBNORM
+          image: "lassonetprobnorm:base"
+          should_run: [True]
+          params: {}
+
+        - algorithm_id: TABNET
+          image: "tabnet:base"
+          should_run: [True]
+          params: {}
+
+# Output Settings: initialize base output folder names
+output_settings:
+
+    # Base output directory
+    output_dir: "outputsKeep"
+    experiment_id: "DREAM5"

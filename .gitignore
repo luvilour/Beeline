@@ -3,8 +3,19 @@ __pycache__
 .vscode
 
 # BEELINE specific files
+AllAlgorithmAllBeelineDatasetsPlots/
+NBStability/
+Plots_Ceci/
 configs/
+logs/
+outputs/
+outputsKeep/
+plots/
+plots_GSD/
+plots_STRING/
+plots_keep/
 plotting_examples/
 RESULTS/
 inputs/
 outputsKeep/STRING-tfs+500
+sif_images/

@@ -32,6 +32,7 @@ class GENIE3Runner(Runner):
 
         cmdToRun = ' '.join(['docker run --rm',
                             f"-v {self.working_dir}:/usr/working_dir",
+                            "-v /home/lvilour/Beeline/Algorithms/ARBORETO/runArboreto.py:/runArboreto.py",
                             '--expose=41269',
                             f'{self.image} /bin/sh -c \"time -v -o',
                             "/usr/working_dir/time.txt",

@@ -1,0 +1,77 @@
+# Input Settings: initialize base input folder names,
+# dataset collections, and algorithms to run over
+input_settings:
+
+    # Base input directory
+    input_dir : "inputs/BEELINE_CODE/"
+
+    # Each dataset entry represents a condition group. Its subdirectories
+    # are individual runs (variants) listed under 'runs'.
+    datasets:
+
+        - dataset_id: "scRNA-Seq"
+          should_run: [True]
+          exprData: "ExpressionData.csv"
+          groundTruthNetwork: "500-network.csv"
+          runs:
+            - run_id: "mHSC-E"
+
+
+    algorithms:
+
+        # - algorithm_id: "GRNVBEM"
+        #   image: "grnbeeline/grnvbem:base"
+        #   should_run: [True]
+        #   params: {}
+        #
+        # - algorithm_id: DEEPSEM
+        #   image: "deepsem:base"
+        #   should_run: [True]
+        #   params: {}
+        #
+        # # - algorithm_id: SCGENERAI
+        # #   image: "scgenerai:base"
+        # #   should_run: [True]
+        # #   params: {}
+        #
+        # # - algorithm_id: SCGENERAIMIXED
+        # #   image: "scgeneraimixed:base"
+        # #   should_run: [True]
+        # #   params: {}
+        #
+        # - algorithm_id: "GENIE3"
+        #   image: "grnbeeline/arboreto:base"
+        #   should_run: [True]
+        #   params: {}
+        #
+        # - algorithm_id: "GRNBOOST2"
+        #   image: "grnbeeline/arboreto:base"
+        #   should_run: [True]
+        #   params: {}
+        #
+        # - algorithm_id: "LASSONET"
+        #   image: "lassonet:base"
+        #   should_run: [True]
+        #   params: {}
+        #
+        # - algorithm_id: LASSONETPROB
+        #   image: "lassonetprob:base"
+        #   should_run: [True]
+        #   params: {}
+
+        - algorithm_id: LASSONETPROBNORM
+          image: "lassonetprobnorm:base"
+          should_run: [True]
+          params: {}
+
+        # - algorithm_id: TABNET
+        #   image: "tabnet:base"
+        #   should_run: [True]
+        #   params: {}
+
+# Output Settings: initialize base output folder names
+output_settings:
+
+    # Base output directory
+    output_dir: "outputsKeep/BEELINE_CODE"
+    experiment_id: "STRING-tfs_500"
